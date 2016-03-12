@@ -25,6 +25,24 @@
 			color:black; 
 		    text-align: left;
 		}
+		form.cancelReservation {
+			text-align: left;
+			color: black;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		form.cancel {
+			text-align: left;
+			color: black;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			margin-left: 220px;
+			
+		}	
+		input.cancelButton{
+			font-size: 120%;
+		}	
+
 		</style>
 	</head>
 
@@ -38,8 +56,12 @@
 	   			<li>reservation 2</li>
 	  			<li>reservation 3</li>
 			</ol> 
-		<form action="../lab03/Account">
-     		<input type="submit" name="cancel" value="Cancel">
+		<form class="cancelReservation">
+		  	Cancel Reservation:
+  			<input type="text" name="Cancel Reservation" value=>
+  		</form>
+		<form class="cancel" action="../lab03/Account">
+     		<input class="cancelButton" type="submit" name="cancel" value="Cancel">
  		</form> 
 	</body>
 </html>

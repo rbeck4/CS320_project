@@ -10,20 +10,20 @@
 			color: red;
 		}
 		
-		td.label {
-			text-align: right;
+		p.reservationNum {
+			text-align: left;
 		}
-		h2.titleCR {
+		form.return {
 			text-align: center;
 			color: black;
+			margin-left: 250px;
 		}
-		ol.currentReservations {
+		form.returnButton {
 			padding-top: 10px;
 			padding-bottom: 10px;
-			border-style:solid; 
-			border-color:black; 
 			color:black; 
 		    text-align: left;
+		    font-size: 120%;
 		}
 		</style>
 	</head>
@@ -32,14 +32,26 @@
 		<h1>
 		Confirmation
 		</h1>
-		<h2 class="titleCR">Current Reservations</h2>
-			<ol class="currentReservations" >
-	  			<li>reservation 1</li>
-	   			<li>reservation 2</li>
-	  			<li>reservation 3</li>
-			</ol> 
-		<form action="../lab03/Account">
-     		<input type="submit" name="return" value="Return Home">
+		<p>
+		Name: 
+		</p>
+		<p>
+		Phone:
+		</p>
+		<p>
+		Dates:
+		</p>
+		<p>
+		Room Type:
+		</p>
+		<p>
+		Room Number:
+		</p>
+		<p class="reservationNum">
+		Reservation Number:
+		</p>
+		<form class="return" action="../lab03/Account">
+     		<input class="returnButton" type="submit" name="return" value="Return Home">
  		</form> 
 	</body>
 </html>
