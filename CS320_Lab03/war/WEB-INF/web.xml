@@ -14,6 +14,10 @@
     <servlet-name>AccountServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.AccountServlet</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>CancelReservationServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.CancelReservationServlet</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>AddNumbersServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.AddNumbersServlet</servlet-class>
@@ -45,6 +49,10 @@
    <servlet-mapping>
     <servlet-name>AccountServlet</servlet-name>
     <url-pattern>/Account</url-pattern>
+  </servlet-mapping>
+     <servlet-mapping>
+    <servlet-name>CancelReservationServlet</servlet-name>
+    <url-pattern>/cancelReservation</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddNumbersServlet</servlet-name>

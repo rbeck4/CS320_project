@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Account</title>
+		<title>Cancel Reservation</title>
 		<style type="text/css">
 		.error {
 			color: red;
@@ -30,7 +30,7 @@
 
 	<body>
 		<h1>
-		Account
+		Cancel Reservation
 		</h1>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
@@ -59,7 +59,7 @@
 	   			<li>reservation 2</li>
 	  			<li>reservation 3</li>
 			</ol> 
-		<form action="../lab03/cancelReservation">
+		<form action="../lab03/Account">
      		<input type="submit" name="cancel" value="Cancel Reservation">
  		</form> 
 	</body>
