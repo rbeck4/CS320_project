@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Cancel Reservation</title>
+		<title>Check Room Availability</title>
 		<style type="text/css">
 		.error {
 			color: red;
@@ -30,16 +30,19 @@
 
 	<body>
 		<h1>
-		Cancel Reservation
+		Check Room Availability
 		</h1>
+		<form action="../lab03/Results">
+     		<input type="submit" name="search" value="Search">
+ 		</form> 
 		<h2 class="titleCR">Current Reservations</h2>
 			<ol class="currentReservations" >
 	  			<li>reservation 1</li>
 	   			<li>reservation 2</li>
 	  			<li>reservation 3</li>
 			</ol> 
-		<form action="../lab03/Account">
-     		<input type="submit" name="cancel" value="Cancel">
+		<form action="../lab03/cancelReservation">
+     		<input type="submit" name="cancel" value="Cancel Reservation">
  		</form> 
 	</body>
 </html>

@@ -32,27 +32,9 @@
 		<h1>
 		Account
 		</h1>
-		<c:if test="${! empty errorMessage}">
-			<div class="error">${errorMessage}</div>
-		</c:if>
-	
-		<form action="${pageContext.servletContext.contextPath}/Account" method="post">
-			<table>
-				<tr>
-					<td class="label">First number:</td>
-					<td><input type="text" name="first" size="12" value="${first}" /></td>
-				</tr>
-				<tr>
-					<td class="label">Second number:</td>
-					<td><input type="text" name="second" size="12" value="${second}" /></td>
-				</tr>
-				<tr>
-					<td class="label">Result:</td>
-					<td>${result}</td>
-				</tr>
-			</table>
-			<input type="Submit" name="submit" value="Add Numbers!">
-		</form>
+		<form action="../lab03/roomAvailability">
+     		<input type="submit" name="checkRA" value="Check Room Availability">
+ 		</form> 
 		<h2 class="titleCR">Current Reservations</h2>
 			<ol class="currentReservations" >
 	  			<li>reservation 1</li>
