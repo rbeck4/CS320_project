@@ -23,6 +23,10 @@
     <servlet-class>edu.ycp.cs320.lab03.servlet.CheckRoomAvailabilityServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ResultsServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.ResultsServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AddNumbersServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.AddNumbersServlet</servlet-class>
   </servlet>
@@ -61,6 +65,10 @@
   <servlet-mapping>
     <servlet-name>CheckRoomAvailabilityServlet</servlet-name>
     <url-pattern>/roomAvailability</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ResultsServlet</servlet-name>
+    <url-pattern>/Results</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddNumbersServlet</servlet-name>
