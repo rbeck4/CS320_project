@@ -13,18 +13,33 @@
 		td.label {
 			text-align: right;
 		}
-		h2.titleCR {
-			text-align: center;
+		form.checkinDate {
+			text-align: left;
+			float: left;
+		}
+		form.checkoutDate {
+			text-align: left;
+			float: left;
+			padding-left: 20px;
+		}
+		h2.titleRT {
+			padding-top: 10px;
+			text-align: Left;
 			color: black;
 		}
-		ol.currentReservations {
-			padding-top: 10px;
+		ol.roomTypes {
 			padding-bottom: 10px;
-			border-style:solid; 
-			border-color:black; 
 			color:black; 
 		    text-align: left;
 		}
+		form.search {
+			text-align: left;
+			margin-left: 500px;
+		}
+		input.searchButton {
+			font-size: 150%;
+		}
+
 		</style>
 	</head>
 
@@ -32,17 +47,28 @@
 		<h1>
 		Check Room Availability
 		</h1>
-		<form action="../lab03/Results">
-     		<input type="submit" name="search" value="Search">
+		<h2 class="titleDates">Dates of Stay</h2>
+		<form class="checkinDate">
+   			Check-In Date:<br>
+  			<input type="text" name="Check-In Date" value=>
+		</form> 
+		<form class="checkoutDate">
+		  	Check-Out Date:<br>
+  			<input type="text" name="Check-Out Date" value=>
+  		</form>
+		<form class="search" action="../lab03/Results">
+     		<input class="searchButton" type="submit" name="search" value="Search">
  		</form> 
-		<h2 class="titleCR">Current Reservations</h2>
-			<ol class="currentReservations" >
-	  			<li>reservation 1</li>
-	   			<li>reservation 2</li>
-	  			<li>reservation 3</li>
-			</ol> 
-		<form action="../lab03/cancelReservation">
-     		<input type="submit" name="cancel" value="Cancel Reservation">
- 		</form> 
+		<h2 class="titleRT">Room Types</h2>
+		<ol class="roomTypes" >
+	  		<li>room 1</li>
+	   		<li>room 2</li>
+	  		<li>room 3</li>
+		</ol> 
+		<form class="RoomSelection">
+		  	Room Selection:
+  			<input type="text" name="Room Selection" value=>
+  		</form>
+		
 	</body>
 </html>
