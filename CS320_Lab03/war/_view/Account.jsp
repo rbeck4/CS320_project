@@ -44,5 +44,9 @@
 		<form action="../lab03/cancelReservation">
      		<input type="submit" name="cancel" value="Cancel Reservation">
  		</form> 
+ 		<br><br>
+		<form action="../lab03/index">
+     		<input type="submit" name="logout" value="Log out">
+ 		</form> 
 	</body>
 </html>
