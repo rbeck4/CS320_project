@@ -11,6 +11,10 @@
     <servlet-class>edu.ycp.cs320.lab03.servlet.IndexServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>AccountServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.AccountServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AddNumbersServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.AddNumbersServlet</servlet-class>
   </servlet>
@@ -20,6 +24,10 @@
   </servlet>
   
   <!-- AJAX servlets. -->
+  <servlet>
+    <servlet-name>AccountAjaxServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.ajax.AccountAjaxServlet</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>AddNumbersAjaxServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.ajax.AddNumbersAjaxServlet</servlet-class>
@@ -34,6 +42,10 @@
     <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>AccountServlet</servlet-name>
+    <url-pattern>/Account</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddNumbersServlet</servlet-name>
     <url-pattern>/addNumbers</url-pattern>
@@ -44,6 +56,10 @@
   </servlet-mapping>
   
   <!--  AJAX servlet mappings. -->
+  <servlet-mapping>
+    <servlet-name>AccountAjaxServlet</servlet-name>
+    <url-pattern>/ajax/Account</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddNumbersAjaxServlet</servlet-name>
     <url-pattern>/ajax/addNumbers</url-pattern>
