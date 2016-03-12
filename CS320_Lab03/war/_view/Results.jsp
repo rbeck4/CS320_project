@@ -13,17 +13,34 @@
 		td.label {
 			text-align: right;
 		}
-		h2.titleCR {
-			text-align: center;
+		h2.titleSR {
+			text-align: left;
 			color: black;
 		}
-		ol.currentReservations {
+		ol.searchResults {
 			padding-top: 10px;
 			padding-bottom: 10px;
 			border-style:solid; 
 			border-color:black; 
 			color:black; 
 		    text-align: left;
+		}
+		form.makeReservation {
+			text-align: left;
+			color: black;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		form.reserve {
+			text-align: left;
+			color: black;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		input.reserveButton {
+			text-align: left;
+			color: black;
+			font-size: 150%;
 		}
 		</style>
 	</head>
@@ -32,14 +49,18 @@
 		<h1>
 		Results
 		</h1>
-		<h2 class="titleCR">Current Reservations</h2>
-			<ol class="currentReservations" >
-	  			<li>reservation 1</li>
-	   			<li>reservation 2</li>
-	  			<li>reservation 3</li>
+		<h2 class="titleSR">Search Results</h2>
+			<ol class="searchResults" >
+	  			<li>hotel room</li>
+	   			<li>hotel room</li>
+	  			<li>hotel room</li>
 			</ol> 
-		<form action="../lab03/Confirmation">
-     		<input type="submit" name="reserve" value="Reserve">
+		<form class="makeReservation">
+		  	Make Reservation:
+  			<input type="text" name="Make Reservation" value=>
+  		</form>
+		<form class="reserve" action="../lab03/Confirmation">
+     		<input class="reserveButton" type="submit" name="reserve" value="Reserve">
  		</form> 
 	</body>
 </html>
