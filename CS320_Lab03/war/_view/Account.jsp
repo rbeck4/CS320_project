@@ -13,6 +13,18 @@
 		td.label {
 			text-align: right;
 		}
+		h2.titleCR {
+			text-align: center;
+			color: black;
+		}
+		ol.currentReservations {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-style:solid; 
+			border-color:black; 
+			color:black; 
+		    text-align: left;
+		}
 		</style>
 	</head>
 
@@ -41,5 +53,12 @@
 			</table>
 			<input type="Submit" name="submit" value="Add Numbers!">
 		</form>
+		<h2 class="titleCR">Current Reservations</h2>
+			<ol class="currentReservations" >
+	  			<li>reservation 1</li>
+	   			<li>reservation 2</li>
+	  			<li>reservation 3</li>
+			</ol> 
+		<input type="Submit" name="cancel" value="Cancel Reservation">
 	</body>
 </html>
