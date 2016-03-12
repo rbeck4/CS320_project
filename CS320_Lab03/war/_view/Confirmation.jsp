@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Results</title>
+		<title>Confirmation</title>
 		<style type="text/css">
 		.error {
 			color: red;
@@ -30,7 +30,7 @@
 
 	<body>
 		<h1>
-		Results
+		Confirmation
 		</h1>
 		<h2 class="titleCR">Current Reservations</h2>
 			<ol class="currentReservations" >
@@ -38,8 +38,8 @@
 	   			<li>reservation 2</li>
 	  			<li>reservation 3</li>
 			</ol> 
-		<form action="../lab03/Confirmation">
-     		<input type="submit" name="reserve" value="Reserve">
+		<form action="../lab03/Account">
+     		<input type="submit" name="return" value="Return Home">
  		</form> 
 	</body>
 </html>

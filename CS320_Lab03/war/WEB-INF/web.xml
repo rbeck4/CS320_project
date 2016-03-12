@@ -27,6 +27,10 @@
     <servlet-class>edu.ycp.cs320.lab03.servlet.ResultsServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ConfirmationServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.ConfirmationServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AddNumbersServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.lab03.servlet.AddNumbersServlet</servlet-class>
   </servlet>
@@ -69,6 +73,10 @@
   <servlet-mapping>
     <servlet-name>ResultsServlet</servlet-name>
     <url-pattern>/Results</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ConfirmationServlet</servlet-name>
+    <url-pattern>/Confirmation</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddNumbersServlet</servlet-name>
