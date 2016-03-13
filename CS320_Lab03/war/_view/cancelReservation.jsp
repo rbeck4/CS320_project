@@ -11,7 +11,7 @@
 		}
 		
 		td.label {
-			text-align: right;
+			text-align: left;
 		}
 		h2.titleCR {
 			text-align: center;
@@ -42,6 +42,9 @@
 		input.cancelButton{
 			font-size: 120%;
 		}	
+		input.returnButton{
+			font-size: 120%;
+		}	
 
 		</style>
 	</head>
@@ -56,12 +59,19 @@
 	   			<li>reservation 2</li>
 	  			<li>reservation 3</li>
 			</ol> 
-		<form class="cancelReservation">
+
+  		<form class="cancelReservation" action="${pageContext.servletContext.contextPath}/cancelReservation" method="post">
 		  	Cancel Reservation:
-  			<input type="text" name="Cancel Reservation" value=>
+  			<input type="text" name="cancelReservation" value="${cancelReservation}" />
+  			<input class="cancelButton" type="Submit" name="select" value="Cancel">
+  			<table>
+  			<tr>
+  			<td class="label">Selected: ${result}</td>
+			</tr>
+			</table>
   		</form>
-		<form class="cancel" action="../HotelReservationSystem/Account">
-     		<input class="cancelButton" type="submit" name="cancel" value="Cancel">
+		<form class="return" action="../HotelReservationSystem/Account">
+     		<input class="returnButton" type="submit" name="cancel" value="Return Home">
  		</form> 
 	</body>
 </html>

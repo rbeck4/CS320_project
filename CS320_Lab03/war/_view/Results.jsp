@@ -11,7 +11,7 @@
 		}
 		
 		td.label {
-			text-align: right;
+			text-align: left;
 		}
 		h2.titleSR {
 			text-align: left;

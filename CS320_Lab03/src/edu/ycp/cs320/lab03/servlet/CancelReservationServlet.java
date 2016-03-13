@@ -24,18 +24,24 @@ public class CancelReservationServlet extends HttpServlet {
 		
 		// Decode form parameters and dispatch to controller
 		String errorMessage = null;
-		Double result = null;
-		try {
-			
-				errorMessage = "Please specify two numbers";
-			
-		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
-		}
+		int result = 0;
 		
+		try {
+			int cancelReservation = Integer.parseInt(req.getParameter("cancelReservation"));
+			
+			if (cancelReservation <= 0) {
+				errorMessage = "Please re-enter";
+			} else {
+				//CancelReservationController controller = new CancelReservationController();
+				//result = controller.add(cancelReservation);
+				System.out.println(cancelReservation);
+				result = cancelReservation;
+			}
+		} catch (NumberFormatException e) {
+			errorMessage = "Invalid";
+		}
 		// Add parameters as request attributes
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
+		req.setAttribute("cancelReservation", req.getParameter("cancelReservation"));
 		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);
