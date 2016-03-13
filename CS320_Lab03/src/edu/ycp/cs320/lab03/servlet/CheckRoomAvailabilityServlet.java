@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.lab03.controller.AccountController;
+import edu.ycp.cs320.lab03.controller.CheckRoomAvailabilityController;
 
 public class CheckRoomAvailabilityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,16 +26,26 @@ public class CheckRoomAvailabilityServlet extends HttpServlet {
 		String errorMessage = null;
 		Double result = null;
 		try {
-			
-				errorMessage = "Please specify two numbers";
-			
+			String CheckInDate = req.getParameter("CheckInDate");
+			String CheckOutDate = req.getParameter("CheckOutDate");
+			int roomType = Integer.parseInt(req.getParameter("roomType"));
+
+			if (CheckOutDate == null || CheckInDate == null) {
+				errorMessage = "Please enter check-out date";
+			} else {
+				//CheckRoomAvailabilityController controller = new CheckRoomAvailabilityController();
+				//result = controller.add(CheckOutDate);
+				System.out.println(CheckInDate);
+				System.out.println(CheckOutDate);
+				System.out.println(roomType);
+			}	
 		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
+			errorMessage = "Invalid";
 		}
 		
 		// Add parameters as request attributes
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
+		req.setAttribute("CheckInDate", req.getParameter("CheckInDate"));
+		req.setAttribute("CheckOutDate", req.getParameter("CheckOutDate"));
 		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);

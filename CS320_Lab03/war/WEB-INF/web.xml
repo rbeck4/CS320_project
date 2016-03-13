@@ -76,7 +76,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CheckRoomAvailabilityServlet</servlet-name>
-    <url-pattern>/roomAvailability</url-pattern>
+    <url-pattern>/checkRoomAvailability</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ResultsServlet</servlet-name>

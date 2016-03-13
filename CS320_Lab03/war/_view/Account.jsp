@@ -32,7 +32,7 @@
 		<h1>
 		Account
 		</h1>
-		<form action="../HotelReservationSystem/roomAvailability">
+		<form action="../HotelReservationSystem/checkRoomAvailability">
      		<input type="submit" name="checkRA" value="Check Room Availability">
  		</form> 
 		<h2 class="titleCR">Current Reservations</h2>

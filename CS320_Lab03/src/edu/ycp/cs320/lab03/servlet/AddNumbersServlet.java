@@ -34,6 +34,7 @@ public class AddNumbersServlet extends HttpServlet {
 			} else {
 				AddNumbersController controller = new AddNumbersController();
 				result = controller.add(first, second);
+				System.out.println(second);
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";

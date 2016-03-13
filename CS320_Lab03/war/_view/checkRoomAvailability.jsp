@@ -10,17 +10,16 @@
 			color: red;
 		}
 		
-		td.label {
-			text-align: right;
-		}
-		form.checkinDate {
+		td.RoomSelection {
 			text-align: left;
-			float: left;
+			padding-top: 20px;
+			padding-bottom: 30px;
 		}
-		form.checkoutDate {
+		td.checkinDate {
 			text-align: left;
-			float: left;
-			padding-left: 20px;
+		}
+		td.coutDate {
+			text-align: left;
 		}
 		h2.titleRT {
 			padding-top: 10px;
@@ -39,36 +38,49 @@
 		input.searchButton {
 			font-size: 150%;
 		}
+		input.selectButton {
+			
+		}
 
 		</style>
 	</head>
 
 	<body>
+		<c:if test="${! empty errorMessage}">
+			<div class="error">${errorMessage}</div>
+		</c:if>
 		<h1>
 		Check Room Availability
 		</h1>
-		<h2 class="titleDates">Dates of Stay</h2>
-		<form class="checkinDate">
-   			Check-In Date:<br>
-  			<input type="text" name="Check-In Date" value=>
-		</form> 
-		<form class="checkoutDate">
-		  	Check-Out Date:<br>
-  			<input type="text" name="Check-Out Date" value=>
-  		</form>
-		<form class="search" action="../HotelReservationSystem/Results">
-     		<input class="searchButton" type="submit" name="search" value="Search">
- 		</form> 
 		<h2 class="titleRT">Room Types</h2>
 		<ol class="roomTypes" >
-	  		<li>room 1</li>
-	   		<li>room 2</li>
-	  		<li>room 3</li>
+	  		<li>Suite</li>
+	   		<li>King Bed</li>
+	  		<li>Two Double Beds</li>
 		</ol> 
-		<form class="RoomSelection">
-		  	Room Selection:
-  			<input type="text" name="Room Selection" value=>
+		<h2 class="titleDates">Dates of Stay</h2>
+		<form action="${pageContext.servletContext.contextPath}/checkRoomAvailability" method="post">
+   			<table>
+				<tr>
+   				<td class="checkinDate">Check-In Date:</td>
+   				<td class="coutDate">Check-Out Date:</td>
+   				</tr>
+  				<tr>
+  				<td><input type="text" name="CheckInDate" value="${CheckInDate}" /></td>		  		
+  				<td><input type="text" name="CheckOutDate" value="${CheckOutDate}" /></td>
+  				</tr> 		
+				<tr>
+				<td class="RoomSelection">Room Selection:</td>
+  				<td class="RoomSelection"><input type="number" name="roomType" value="${roomType}" /></td>
+  				</tr>
+  		</table>
+  		<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
   		</form>
+  		
+  		<form class="search" action="../HotelReservationSystem/Results">
+     		<input class="searchButton" type="Submit" name="search" value="Search">
+ 		</form> 
+		
 		
 	</body>
 </html>
