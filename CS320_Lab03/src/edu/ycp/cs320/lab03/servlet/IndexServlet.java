@@ -35,11 +35,12 @@ public class IndexServlet extends HttpServlet {
 				//session.setAttribute("username",username); 
 				resp.sendRedirect("/HotelReservationSystem/Account"); 
 			} else {
-				resp.sendRedirect("/HotelReservationSystem/index");
+				//resp.sendRedirect("/HotelReservationSystem/index");
+				errorMessage = "Invalid Username and/or Password";
 			}
 
 		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
+			errorMessage = "Invalid";
 		}
 		
 		// Add parameters as request attributes
@@ -51,6 +52,6 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("result", result);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/Account.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
 }

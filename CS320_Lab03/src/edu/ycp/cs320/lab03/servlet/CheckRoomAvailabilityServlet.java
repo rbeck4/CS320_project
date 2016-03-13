@@ -38,6 +38,7 @@ public class CheckRoomAvailabilityServlet extends HttpServlet {
 				System.out.println(CheckInDate);
 				System.out.println(CheckOutDate);
 				System.out.println(roomType);
+				//resp.sendRedirect("/HotelReservationSystem/Results");
 			}	
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid";
