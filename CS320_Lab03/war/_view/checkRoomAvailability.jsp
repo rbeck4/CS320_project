@@ -56,7 +56,7 @@
 		  	Check-Out Date:<br>
   			<input type="text" name="Check-Out Date" value=>
   		</form>
-		<form class="search" action="../lab03/Results">
+		<form class="search" action="../HotelReservationSystem/Results">
      		<input class="searchButton" type="submit" name="search" value="Search">
  		</form> 
 		<h2 class="titleRT">Room Types</h2>

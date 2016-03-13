@@ -41,10 +41,10 @@
   			Password:<br>
   			<input type="text" name="password">
 		</form>
-		<form class="login" action="../lab03/Account">
+		<form class="login" action="../HotelReservationSystem/Account">
      		<input class="loginButton" type="submit" name="Login" value="Login">
  		</form> 
-		<form class="createAccount" action="../lab03/newAccount">
+		<form class="createAccount" action="../HotelReservationSystem/newAccount">
      		<input class="createAccountButton" type="submit" name="Create Account" value="Create Account">
  		</form> 
 	</body>

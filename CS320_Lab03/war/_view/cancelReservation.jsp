@@ -60,7 +60,7 @@
 		  	Cancel Reservation:
   			<input type="text" name="Cancel Reservation" value=>
   		</form>
-		<form class="cancel" action="../lab03/Account">
+		<form class="cancel" action="../HotelReservationSystem/Account">
      		<input class="cancelButton" type="submit" name="cancel" value="Cancel">
  		</form> 
 	</body>

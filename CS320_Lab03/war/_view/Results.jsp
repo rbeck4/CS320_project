@@ -59,7 +59,7 @@
 		  	Make Reservation:
   			<input type="text" name="Make Reservation" value=>
   		</form>
-		<form class="reserve" action="../lab03/Confirmation">
+		<form class="reserve" action="../HotelReservationSystem/Confirmation">
      		<input class="reserveButton" type="submit" name="reserve" value="Reserve">
  		</form> 
 	</body>

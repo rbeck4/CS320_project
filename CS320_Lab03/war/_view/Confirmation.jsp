@@ -50,7 +50,7 @@
 		<p class="reservationNum">
 		Reservation Number:
 		</p>
-		<form class="return" action="../lab03/Account">
+		<form class="return" action="../HotelReservationSystem/Account">
      		<input class="returnButton" type="submit" name="return" value="Return Home">
  		</form> 
 	</body>

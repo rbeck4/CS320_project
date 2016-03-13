@@ -59,7 +59,7 @@
   			Payment:<br>
   			<input type="text" name="payment"><br>
 		</form>
-		<form class="createAccount" action="../lab03/index">
+		<form class="createAccount" action="../HotelReservationSystem/index">
      		<input class="createAccountButton" type="submit" name="Create Account" value="Create Account">
  		</form> 
 	</body>
