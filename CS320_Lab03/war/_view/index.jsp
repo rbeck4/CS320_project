@@ -9,14 +9,17 @@
 		}
 		
 		td.label {
-			text-align: right;
+			text-align: left;
+			padding-bottom: 20px;
 		}
 		form.login {
 			text-align: left;
-			padding-top: 10px;
+			padding-bottom: 10px;
 		}
 		input.loginButton {
 			text-align: left;
+			margin-left: 250px;
+			font-size: 120%
 		}
 		form.createAccount {
 			text-align: left;
@@ -24,6 +27,8 @@
 		}
 		input.createAccountButton {
 			text-align: left;
+			margin-left: 250px;
+			font-size: 120%
 		}
 		</style>
 	</head>
@@ -35,15 +40,18 @@
 		<h2>
 		Login
 		</h2>
-		<form>
-   			Username:<br>
-  			<input type="text" name="username"><br>
-  			Password:<br>
-  			<input type="text" name="password">
-		</form>
-		<form class="login" action="../HotelReservationSystem/Account">
-     		<input class="loginButton" type="submit" name="Login" value="Login">
- 		</form> 
+
+		<form class ="login" action="${pageContext.servletContext.contextPath}/index" method="post"> <br/>
+			<table>
+  			<tr>
+			<td>Username:</td><td><input type="text" name="username"> </td>
+			</tr>
+			<tr>
+			<td>Password:</td><td><input type="password" name="password"> </td>
+			</tr>
+			</table>
+			<input class="loginButton" type="submit" name="Login" value="Login"> 
+		</form> 
 		<form class="createAccount" action="../HotelReservationSystem/newAccount">
      		<input class="createAccountButton" type="submit" name="Create Account" value="Create Account">
  		</form> 

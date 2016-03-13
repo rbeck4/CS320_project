@@ -50,6 +50,9 @@
 	</head>
 
 	<body>
+		<c:if test="${! empty errorMessage}">
+			<div class="error">${errorMessage}</div>
+		</c:if>
 		<h1>
 		Cancel Reservation
 		</h1>
