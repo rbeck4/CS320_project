@@ -24,18 +24,24 @@ public class ResultsServlet extends HttpServlet {
 		
 		// Decode form parameters and dispatch to controller
 		String errorMessage = null;
-		Double result = null;
-		try {
-			
-				errorMessage = "Please specify two numbers";
-			
-		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
-		}
+		int result = 0;
 		
+		try {
+			int reservation = Integer.parseInt(req.getParameter("reservation"));
+			
+			if (reservation <= 0) {
+				errorMessage = "Please re-enter";
+			} else {
+				//CheckRoomAvailabilityController controller = new CheckRoomAvailabilityController();
+				//result = controller.add(CheckOutDate);
+				System.out.println(reservation);
+				result = reservation;
+			}
+		} catch (NumberFormatException e) {
+			errorMessage = "Invalid";
+		}
 		// Add parameters as request attributes
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
+		req.setAttribute("reservation", req.getParameter("reservation"));
 		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);

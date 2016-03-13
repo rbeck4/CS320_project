@@ -46,6 +46,7 @@ public class CheckRoomAvailabilityServlet extends HttpServlet {
 		// Add parameters as request attributes
 		req.setAttribute("CheckInDate", req.getParameter("CheckInDate"));
 		req.setAttribute("CheckOutDate", req.getParameter("CheckOutDate"));
+		req.setAttribute("roomType", req.getParameter("roomType"));
 		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);

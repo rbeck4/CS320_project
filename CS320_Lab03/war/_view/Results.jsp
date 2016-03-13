@@ -46,6 +46,9 @@
 	</head>
 
 	<body>
+		<c:if test="${! empty errorMessage}">
+			<div class="error">${errorMessage}</div>
+		</c:if>
 		<h1>
 		Results
 		</h1>
@@ -55,10 +58,17 @@
 	   			<li>hotel room</li>
 	  			<li>hotel room</li>
 			</ol> 
-		<form class="makeReservation">
+		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/Results" method="post">
 		  	Make Reservation:
-  			<input type="text" name="Make Reservation" value=>
+  			<input type="text" name="reservation" value="${reservation}" />
+  			<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
+  			<table>
+  			<tr>
+  			<td class="label">Selected: ${result}</td>
+			</tr>
+			</table>
   		</form>
+  		
 		<form class="reserve" action="../HotelReservationSystem/Confirmation">
      		<input class="reserveButton" type="submit" name="reserve" value="Reserve">
  		</form> 
