@@ -1,40 +1,25 @@
 package edu.ycp.cs320.lab03.model;
 
 public class Requests {
-	private int min, max;
+	private int zipCode;
+	private String hotelName;
 	
 	public Requests() {
 	}
 	
-	public void setMin(int min) {
-		this.min = min;
+	public void setZip(int zipCode) {
+		this.zipCode = zipCode;
 	}
 	
-	public int getMin() {
-		return min;
+	public int getZip() {
+		return zipCode;
 	}
 	
-	public void setMax(int max) {
-		this.max = max;
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
 	}
 	
-	public int getMax() {
-		return max;
-	}
-	
-	public boolean isDone() {
-		return min == max;
-	}
-	
-	public int getGuess() {
-		return min + (max-min)/2;
-	}
-	
-	public void setIsLessThan(int guess) {
-		this.max = guess-1;
-	}
-	
-	public void setIsGreaterThan(int guess) {
-		this.min = guess+1;
+	public String getHotelName() {
+		return hotelName;
 	}
 }
