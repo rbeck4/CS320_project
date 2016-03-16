@@ -18,6 +18,38 @@ public class SearchRequest {
 	public int getNumberResults() {
 		return numberResults;
 	}
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
 	
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setCheckInDate(String CheckInDate) {
+		this.CheckInDate = CheckInDate;
+	}
 	
+	public String getCheckInDate() {
+		return CheckInDate;
+	}
+	public void setCheckOutDate(String CheckOutDate) {
+		this.CheckOutDate = CheckOutDate;
+	}
+	
+	public String getCheckOutDate() {
+		return CheckOutDate;
+	}	
+	public void setSite(String site) {
+		this.site = site;
+	}
+	public String getSite() {
+		return site;
+	}
+	public void setHotelPreference(String hotelPreference) {
+		this.hotelPreference = hotelPreference;
+	}
+	public String getHotelPreference() {
+		return hotelPreference;
+	}
 }
