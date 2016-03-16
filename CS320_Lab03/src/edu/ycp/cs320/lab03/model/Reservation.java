@@ -1,40 +1,55 @@
 package edu.ycp.cs320.lab03.model;
 
 public class Reservation {
-	private int min, max;
+	private int cost;
+	private String room;
+	private String site;
+	private String CheckInDate;
+	private String CheckOutDate;
+	private Boolean cancel;
 	
 	public Reservation() {
 	}
 	
-	public void setMin(int min) {
-		this.min = min;
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 	
-	public int getMin() {
-		return min;
+	public int getCost() {
+		return cost;
 	}
 	
-	public void setMax(int max) {
-		this.max = max;
+	public void setRoom(String room) {
+		this.room = room;
 	}
 	
-	public int getMax() {
-		return max;
+	public String getRoom() {
+		return room;
 	}
 	
-	public boolean isDone() {
-		return min == max;
+	public boolean cancel() {
+		return true;
+	}
+	public void setSite(String site) {
+		this.site = site;
 	}
 	
-	public int getGuess() {
-		return min + (max-min)/2;
+	public String getSite() {
+		return site;
+	}	
+	public void setCheckInDate(String CheckInDate) {
+		this.CheckInDate = CheckInDate;
 	}
 	
-	public void setIsLessThan(int guess) {
-		this.max = guess-1;
+	public String getCheckInDate() {
+		return CheckInDate;
+	}
+	public void setCheckOutDate(String CheckOutDate) {
+		this.CheckOutDate = CheckOutDate;
 	}
 	
-	public void setIsGreaterThan(int guess) {
-		this.min = guess+1;
-	}
+	public String getCheckOutDate() {
+		return CheckOutDate;
+	}	
+	
 }
