@@ -2,7 +2,7 @@ package edu.ycp.cs320.lab03.model;
 
 public class SearchRequest {
 	private int numberResults;
-	private String roomType;
+	private int roomType;
 	private String CheckInDate;
 	private String CheckOutDate;
 	private String site;
@@ -18,11 +18,11 @@ public class SearchRequest {
 	public int getNumberResults() {
 		return numberResults;
 	}
-	public void setRoomType(String roomType) {
+	public void setRoomType(int roomType) {
 		this.roomType = roomType;
 	}
 	
-	public String getRoomType() {
+	public int getRoomType() {
 		return roomType;
 	}
 

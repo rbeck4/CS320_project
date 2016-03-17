@@ -23,8 +23,8 @@
     <servlet-class>edu.ycp.cs320.lab03.servlet.CancelReservationServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CheckRoomAvailabilityServlet</servlet-name>
-    <servlet-class>edu.ycp.cs320.lab03.servlet.CheckRoomAvailabilityServlet</servlet-class>
+    <servlet-name>SearchRequestServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.lab03.servlet.SearchRequestServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>ResultsServlet</servlet-name>
@@ -75,7 +75,7 @@
     <url-pattern>/cancelReservation</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CheckRoomAvailabilityServlet</servlet-name>
+    <servlet-name>SearchRequestServlet</servlet-name>
     <url-pattern>/checkRoomAvailability</url-pattern>
   </servlet-mapping>
   <servlet-mapping>

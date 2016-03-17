@@ -36,6 +36,10 @@ public class SearchRequestServlet extends HttpServlet {
 			String CheckOutDate = req.getParameter("CheckOutDate");
 			int roomType = Integer.parseInt(req.getParameter("roomType"));
 
+			model.setCheckInDate(CheckInDate);
+			model.setCheckOutDate(CheckOutDate);
+			model.setRoomType(roomType);
+			
 			if (CheckOutDate == null || CheckInDate == null) {
 				errorMessage = "Please enter check-out date";
 			} else {
