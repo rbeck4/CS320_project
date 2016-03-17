@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.lab03.controller.CheckRoomAvailabilityController;
+import edu.ycp.cs320.lab03.controller.SearchRequestController;
+import edu.ycp.cs320.lab03.model.SearchRequest;
 
-public class CheckRoomAvailabilityServlet extends HttpServlet {
+public class SearchRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -23,6 +24,11 @@ public class CheckRoomAvailabilityServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		// Decode form parameters and dispatch to controller
+		SearchRequest model = new SearchRequest();
+		
+		SearchRequestController controller = new SearchRequestController();
+		controller.setModel(model);
+		
 		String errorMessage = null;
 		Double result = null;
 		try {
