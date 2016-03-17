@@ -4,8 +4,10 @@
 
 <html>
 	<head>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<title>Account</title>
 		<style type="text/css">
+		
 		.error {
 			color: red;
 		}
@@ -16,6 +18,7 @@
 		h2.titleCR {
 			text-align: center;
 			color: black;
+			font-family: 'Open Sans', sans-serif;
 		}
 		ol.currentReservations {
 			padding-top: 10px;
@@ -29,7 +32,7 @@
 	</head>
 
 	<body>
-		<h1>
+		<h1 style="font-family: 'Open Sans', sans-serif">
 		Account
 		</h1>
 		<form action="../HotelReservationSystem/checkRoomAvailability">

@@ -45,7 +45,8 @@ public class SearchRequestServlet extends HttpServlet {
 			} else {
 				//CheckRoomAvailabilityController controller = new CheckRoomAvailabilityController();
 				//result = controller.add(CheckOutDate);
-				System.out.println(CheckInDate);
+				String CheckInDate2 = model.getCheckInDate();
+				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDate);
 				System.out.println(roomType);
 				//resp.sendRedirect("/HotelReservationSystem/Results");
