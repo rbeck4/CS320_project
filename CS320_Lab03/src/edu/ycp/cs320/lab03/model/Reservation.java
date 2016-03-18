@@ -1,5 +1,7 @@
 package edu.ycp.cs320.lab03.model;
 
+import java.util.ArrayList;
+
 public class Reservation {
 	private int cost;
 	private String room;
@@ -7,6 +9,7 @@ public class Reservation {
 	private String CheckInDate;
 	private String CheckOutDate;
 	private Boolean cancel;
+	
 	
 	public Reservation() {
 	}

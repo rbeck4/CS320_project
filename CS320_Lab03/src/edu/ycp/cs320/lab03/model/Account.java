@@ -1,5 +1,7 @@
 package edu.ycp.cs320.lab03.model;
 
+import java.util.ArrayList;
+
 public class Account {
 	private int payment;
 	private String name;
@@ -8,6 +10,7 @@ public class Account {
 	private String email;
 	private String address;
 	private Boolean isValid;
+	private ArrayList<String> reservation;
 	
 	public Account() {
 	}
@@ -59,6 +62,14 @@ public class Account {
 	
 	public String getAddress() {
 		return address;
+	}
+
+	public ArrayList<String> getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(ArrayList<String> reservation) {
+		this.reservation = reservation;
 	}
 
 }
