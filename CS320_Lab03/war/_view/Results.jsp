@@ -58,6 +58,7 @@
 	   			<li>hotel room</li>
 	  			<li>hotel room</li>
 			</ol> 
+		
 			
 		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/Results" method="post">
 		  	Make Reservation:

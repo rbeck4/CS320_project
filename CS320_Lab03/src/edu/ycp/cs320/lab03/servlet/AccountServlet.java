@@ -40,7 +40,6 @@ public class AccountServlet extends HttpServlet {
 		reservation.add("reservation 303");
 		
 		try {
-			
 				errorMessage = "Please specify two numbers";
 			
 		} catch (NumberFormatException e) {
