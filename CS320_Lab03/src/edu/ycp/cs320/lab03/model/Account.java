@@ -10,7 +10,7 @@ public class Account {
 	private String email;
 	private String address;
 	private Boolean isValid;
-	private ArrayList<String> reservation;
+	private ArrayList<Reservation> reservation;
 	
 	public Account() {
 	}
@@ -64,11 +64,11 @@ public class Account {
 		return address;
 	}
 
-	public ArrayList<String> getReservation() {
+	public ArrayList<Reservation> getReservation() {
 		return reservation;
 	}
 
-	public void setReservation(ArrayList<String> reservation) {
+	public void setReservation(ArrayList<Reservation> reservation) {
 		this.reservation = reservation;
 	}
 
