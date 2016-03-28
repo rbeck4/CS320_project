@@ -40,13 +40,8 @@
  		</form> 
 		<h2 class="titleCR">Current Reservations</h2>
 			<ol class="currentReservations" >
-	  			<li>reservation 1</li>
-	   			<li>reservation 2</li>
-	  			<li>reservation 3</li>
+	  			<li>Pull Reservations from Database</li>
 			</ol> 
-		<c:forEach items="${reservation}" var="reservation">
-    		${item}<br>
-		</c:forEach>
 		<form action="../HotelReservationSystem/cancelReservation">
      		<input type="submit" name="cancel" value="Cancel Reservation">
  		</form> 
