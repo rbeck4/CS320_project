@@ -49,6 +49,7 @@ public class SearchRequestServlet extends HttpServlet {
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDate);
 				System.out.println(roomType);
+				controller.webScraper(CheckInDate, CheckOutDate);
 				//resp.sendRedirect("/HotelReservationSystem/Results");
 			}	
 		} catch (NumberFormatException e) {
