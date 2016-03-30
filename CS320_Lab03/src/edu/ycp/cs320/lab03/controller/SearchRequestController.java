@@ -54,11 +54,6 @@ public class SearchRequestController {
 		    	    System.out.println("Room type: " + rooms.get(i).text());
 		      } 
 		      
-		      //for (Element hotel : hotels) {
-		        //get the value from the href attribute
-		        //System.out.println("\nlink: " + link.attr("href"));
-		    	//System.out.println("Hotel: " + link.text());
-		      //}
 		      for (Element price : prices) {
 			    //System.out.println("Price: " + price.text());
 			  }
