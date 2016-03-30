@@ -1,9 +1,9 @@
 package edu.ycp.cs320.lab03.model;
 
-public class Searches {
+public class PreviousSearches {
 	private int min, max;
 	
-	public Searches() {
+	public PreviousSearches() {
 	}
 	
 	public void setMin(int min) {
