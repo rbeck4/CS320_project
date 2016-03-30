@@ -23,9 +23,8 @@ public class SearchRequestController {
 		// TODO Auto-generated method stub
 		Document doc;
 		try {
-			//String checkIn = "2016-04-12";
-		    //String checkOut= "2016-04-16";
-			//doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c192YYgBAZgBMbgBDMgBD9gBAegBAfgBAqgCAw;sid=c7ddbaef979b3e3d4c98b522ade5707c;dcid=4;class_interval=1;dest_id=20053799;dest_type=city;group_adults=2;group_children=0;label_click=undef;no_rooms=1;offset=0;qrhpp=8eab35da39b929d7c4f878b28326b7b3-city-0;review_score_group=empty;room1=A%2CA;sb_price_type=total;score_min=0;si=ai%2Cco%2Cci%2Cre%2Cdi;src=index;ss=Baltimore;ssb=empty;srpos=1;origin=search").get(); 
+			
+			//connect to booking.com baltimore hotels website, for inputed dates fo stay
 			doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c192YYgBAZgBMbgBDMgBD9gBAegBAfgBAqgCAw&sid=c7ddbaef979b3e3d4c98b522ade5707c&dcid=4&checkin="+checkIn+"&checkout="+checkOut+"&city=20053799&class_interval=1&dcsc=2&dtdisc=0&group_adults=2&group_children=0&hlrd=0&hyb_red=0&inac=0&label_click=undef&nha_red=0&no_rooms=1&postcard=0&redirected_from_city=0&redirected_from_landmark=0&redirected_from_region=0&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&ss_all=0&ssb=empty&sshis=0&order=score").get();
 			String title = doc.title();
 			System.out.println("Title: " + title);
@@ -38,6 +37,7 @@ public class SearchRequestController {
 		      //  System.out.println("text: " + link.text());
 		      //}
 			  //Elements hotels = doc.select(#);
+			  //scrape hotel names, prices, and rooms.
 		      Elements hotels = doc.select("a.hotel_name_link.url");
 		      Elements prices = doc.select("b");
 		      Elements rooms = doc.select("span.room_link");
@@ -48,6 +48,7 @@ public class SearchRequestController {
 		      ArrayList<String> hotelNames = new ArrayList<String>();
 		      hotelNames.add(hotels.get(0).text());
 		      
+		      //print to console scraped info
 		      for(int i = 0; i < 15; i++) {   
 		    	    System.out.println("Hotel: " + hotels.get(i).text());
 		    	    System.out.println("Price: " + prices.get(i).text());

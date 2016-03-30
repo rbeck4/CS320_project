@@ -32,8 +32,8 @@ public class CancelReservationServlet extends HttpServlet {
 			if (cancelReservation <= 0) {
 				errorMessage = "Please re-enter";
 			} else {
-				//CancelReservationController controller = new CancelReservationController();
-				//result = controller.add(cancelReservation);
+				//ReservationController controller = new ReservationController();
+				//result = controller.cancel(cancelReservation);
 				System.out.println(cancelReservation);
 				result = cancelReservation;
 			}
