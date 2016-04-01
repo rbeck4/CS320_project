@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -40,7 +43,7 @@
  		</form> 
 		<h2 class="titleCR">Current Reservations</h2>
 			<ol class="currentReservations" >
-	  			<li>Pull Reservations from Database</li>
+	  			<li>Hotel | Starting Date| Ending Date</li>
 			</ol> 
 		<form action="../HotelReservationSystem/cancelReservation">
      		<input type="submit" name="cancel" value="Cancel Reservation">
