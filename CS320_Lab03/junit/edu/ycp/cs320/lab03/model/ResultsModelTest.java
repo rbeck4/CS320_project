@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import edu.ycp.cs320.lab03.controller.GuessingGameController;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
-import edu.ycp.cs320.lab03.model.GuessingGame;
 import edu.ycp.cs320.lab03.model.SearchRequest;
 
 public class ResultsModelTest {
