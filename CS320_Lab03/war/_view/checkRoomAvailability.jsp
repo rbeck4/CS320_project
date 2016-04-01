@@ -73,8 +73,8 @@
 				<td class="RoomSelection">Room Selection:</td>
   				<td class="RoomSelection"><input type="number" name="roomType" value="${roomType}" /></td>
   				</tr>
-  		</table>
-  		<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
+  			</table>
+  			<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
   		</form>
   		
   		<form class="search" action="../HotelReservationSystem/Results">

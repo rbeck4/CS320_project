@@ -43,8 +43,7 @@ public class SearchRequestServlet extends HttpServlet {
 			if (CheckOutDate == null || CheckInDate == null) {
 				errorMessage = "Please enter check-out date";
 			} else {
-				//CheckRoomAvailabilityController controller = new CheckRoomAvailabilityController();
-				//result = controller.add(CheckOutDate);
+				
 				String CheckInDate2 = model.getCheckInDate();
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDate);
