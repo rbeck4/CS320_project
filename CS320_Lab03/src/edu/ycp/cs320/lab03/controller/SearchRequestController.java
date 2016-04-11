@@ -25,15 +25,20 @@ public class SearchRequestController {
 		try {
 			
 			//connect to booking.com baltimore hotels website, for inputed dates of stay
-			doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c192YYgBAZgBMbgBDMgBD9gBAegBAfgBAqgCAw&sid=c7ddbaef979b3e3d4c98b522ade5707c&dcid=4&checkin="+checkIn+"&checkout="+checkOut+"&city=20053799&class_interval=1&dcsc=2&dtdisc=0&group_adults=2&group_children=0&hlrd=0&hyb_red=0&inac=0&label_click=undef&nha_red=0&no_rooms=1&postcard=0&redirected_from_city=0&redirected_from_landmark=0&redirected_from_region=0&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&ss_all=0&ssb=empty&sshis=0&order=score").get();
+			//doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c192YYgBAZgBMbgBDMgBD9gBAegBAfgBAqgCAw&sid=c7ddbaef979b3e3d4c98b522ade5707c&dcid=4&checkin="+checkIn+"&checkout="+checkOut+"&city=20053799&class_interval=1&dcsc=2&dtdisc=0&group_adults=2&group_children=0&hlrd=0&hyb_red=0&inac=0&label_click=undef&nha_red=0&no_rooms=1&postcard=0&redirected_from_city=0&redirected_from_landmark=0&redirected_from_region=0&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&ss_all=0&ssb=empty&sshis=0&order=score").get();
+			doc = Jsoup.connect("https://www.expedia.com/Hotel-Search?#destination=Baltimore+(and+vicinity),+Maryland,+United+States+of+America&startDate="+checkIn+"&endDate="+checkOut+"&adults=2&regionId=178235&sort=guestRating").get();
+
 			String title = doc.title();
 			System.out.println("Title: " + title);
 			
 			
 			  //scrape hotel names, prices, and room types.
-		      Elements hotels = doc.select("a.hotel_name_link.url");
-		      Elements prices = doc.select("b");
-		      Elements rooms = doc.select("span.room_link");
+		      //Elements hotels = doc.select("a.hotel_name_link.url");
+			  Elements hotels = doc.select("span.hotelName");
+		      //Elements prices = doc.select("b");
+		      Elements prices = doc.select("span.actualPrice.fakeLink");
+		      //Elements rooms = doc.select("span.room_link");
+		      //Elements rooms = doc.select("span.room_link");
 		      
 		      System.out.println("First Hotel: " +hotels.get(0).text());
 		      System.out.println("First Hotel: " + prices.get(0).text());
@@ -45,15 +50,15 @@ public class SearchRequestController {
 		      for(int i = 0; i < 15; i++) {   
 		    	    System.out.println("Hotel: " + hotels.get(i).text());
 		    	    System.out.println("Price: " + prices.get(i).text());
-		    	    System.out.println("Room type: " + rooms.get(i).text());
+		    	    //System.out.println("Room type: " + rooms.get(i).text());
 		      } 
 		      
 		      for (Element price : prices) {
 			    //System.out.println("Price: " + price.text());
 			  }
-		      for (Element room : rooms) {
+		      //for (Element room : rooms) {
 				  //  System.out.println("Room type: " + room.text());
-		      }
+		     // }
 			
 		     // Elements xxxDivs = doc.select("div.answer[name=ss]");
 		      //System.out.println("hotel: " + xxxDivs.text());
