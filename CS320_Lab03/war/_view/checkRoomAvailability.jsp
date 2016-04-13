@@ -15,10 +15,16 @@
 			padding-top: 20px;
 			padding-bottom: 30px;
 		}
-		td.checkinDate {
+		td.checkinDay {
 			text-align: left;
 		}
-		td.coutDate {
+		td.coutDay {
+			text-align: left;
+		}
+		td.checkinMonth {
+			text-align: left;
+		}
+		td.coutMonth {
 			text-align: left;
 		}
 		h2.titleRT {
@@ -62,12 +68,16 @@
 		<form action="${pageContext.servletContext.contextPath}/checkRoomAvailability" method="post">
    			<table>
 				<tr>
-   				<td class="checkinDate">Check-In Date:</td>
-   				<td class="coutDate">Check-Out Date:</td>
+   				<td class="checkinDay">Check-In Day:</td>
+   				<td class="checkinMonth">Check-In Month:</td>
+   				<td class="coutDay">Check-Out Day:</td>
+   				<td class="coutMonth">Check-Out Month:</td>
    				</tr>
   				<tr>
-  				<td><input type="text" name="CheckInDate" value="${CheckInDate}" /></td>		  		
-  				<td><input type="text" name="CheckOutDate" value="${CheckOutDate}" /></td>
+  				<td><input type="text" name="CheckInDay" value="${CheckInDay}" /></td>	
+  				<td><input type="text" name="CheckInMonth" value="${CheckInMonth}" /></td>	  		
+  				<td><input type="text" name="CheckOutDay" value="${CheckOutDay}" /></td>
+  				<td><input type="text" name="CheckOutMonth" value="${CheckOutMonth}" /></td>
   				</tr> 		
 				<tr>
 				<td class="RoomSelection">Room Selection:</td>

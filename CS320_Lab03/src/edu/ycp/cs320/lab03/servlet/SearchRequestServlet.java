@@ -32,23 +32,30 @@ public class SearchRequestServlet extends HttpServlet {
 		String errorMessage = null;
 		Double result = null;
 		try {
-			String CheckInDate = req.getParameter("CheckInDate");
-			String CheckOutDate = req.getParameter("CheckOutDate");
+			//String CheckInDate = req.getParameter("CheckInDate");
+			//String CheckOutDate = req.getParameter("CheckOutDate");
 			int roomType = Integer.parseInt(req.getParameter("roomType"));
-
-			model.setCheckInDate(CheckInDate);
-			model.setCheckOutDate(CheckOutDate);
+			
+			String CheckInDay = req.getParameter("CheckInDay");
+			String CheckInMonth = req.getParameter("CheckInMonth");;
+			String CheckOutDay = req.getParameter("CheckOutDay");;
+			String CheckOutMonth = req.getParameter("CheckOutMonth");;
+			
+			model.setCheckInDay(CheckInDay);
+			model.setCheckInMonth(CheckInMonth);
+			model.setCheckOutDay(CheckOutDay);
+			model.setCheckOutMonth(CheckOutMonth);
 			model.setRoomType(roomType);
 			
-			if (CheckOutDate == null || CheckInDate == null) {
-				errorMessage = "Please enter check-out date";
+			if (CheckOutDay == null || CheckInDay == null) {
+				errorMessage = "Please enter dates";
 			} else {
 				
-				String CheckInDate2 = model.getCheckInDate();
+				String CheckInDate2 = model.getCheckInDay();
 				System.out.println(CheckInDate2);
-				System.out.println(CheckOutDate);
+				System.out.println(CheckOutDay);
 				System.out.println(roomType);
-				controller.webScraper(CheckInDate, CheckOutDate);
+				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth);
 				//resp.sendRedirect("/HotelReservationSystem/Results");
 			}	
 		} catch (NumberFormatException e) {
@@ -56,8 +63,10 @@ public class SearchRequestServlet extends HttpServlet {
 		}
 		
 		// Add parameters as request attributes
-		req.setAttribute("CheckInDate", req.getParameter("CheckInDate"));
-		req.setAttribute("CheckOutDate", req.getParameter("CheckOutDate"));
+		req.setAttribute("CheckInDay", req.getParameter("CheckInDay"));
+		req.setAttribute("CheckOutDay", req.getParameter("CheckOutDay"));
+		req.setAttribute("CheckInMonth", req.getParameter("CheckInMonth"));
+		req.setAttribute("CheckOutMonth", req.getParameter("CheckOutMonth"));
 		req.setAttribute("roomType", req.getParameter("roomType"));
 		
 		// Add result objects as request attributes
