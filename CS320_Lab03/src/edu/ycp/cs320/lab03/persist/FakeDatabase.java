@@ -10,15 +10,13 @@ import edu.ycp.cs320.lab03.model.Reservation;
 
 public class FakeDatabase implements IDatabase {
 	
-	private List<String> userList;
-	private List<String> passList;
+	private List<Account> accountList;
 	private List<Reservation> reservList;
 	
 	// Fake database constructor - initializes the DB
 	// the DB only consists for a List of Authors and a List of Books
 	public FakeDatabase() {
-		userList = new ArrayList<String>();
-		passList = new ArrayList<String>();
+		accountList = new ArrayList<Account>();
 		reservList = new ArrayList<Reservation>();
 		
 		// Add initial data
@@ -31,27 +29,11 @@ public class FakeDatabase implements IDatabase {
 	// loads the initial data retrieved from the CSV files into the DB
 	public void readInitialData() {
 		try {
-			userList.addAll(InitialData.getUser());
-			passList.addAll(Initialdata.getPass()));)
-			reservList.addAll(InitialData.getReservations());
+			accountList.addAll(InitialData.getAccount());
+			reservList.addAll(InitialData.getReservation());
 		} catch (IOException e) {
 			throw new IllegalStateException("Couldn't read initial data", e);
 		}
-	}
-	
-	// query that retrieves Book and its Author by Title
-	@Override
-	public List<Pair<String, String>> findPasswordByUser(String usr) {
-		List<Pair<String, Book>> result = new ArrayList<Pair<String,String>>();
-		for (String user : result) {
-//			System.out.println("Book: <" + book.getTitle() + ">" + "  Title: <" + title + ">");
-			
-			if (book.getTitle().equals(title)) {
-				Author author = findAuthorByAuthorId(book.getAuthorId());
-				result.add(new Pair<Author, Book>(author, book));
-			}
-		}
-		return result;
 	}
 	
 	// query that retrieves all Books, for the Author's last name
@@ -78,7 +60,7 @@ public class FakeDatabase implements IDatabase {
 	
 	// query that retrieves all Books, with their Authors, from DB
 	@Override
-	public List<Pair<Author, Book>> findAllBooksWithAuthors() {
+	public List<Pair<Author, Book>> FindAllReservationsWithuser() {
 		List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
 		for (Book book : bookList) {
 			Author author = findAuthorByAuthorId(book.getAuthorId());
@@ -106,7 +88,7 @@ public class FakeDatabase implements IDatabase {
 	// or we could mark Book/Author entries as deleted, and leave them open for reuse, but we could not delete an Author
 	//    unless they have no Books in the Books table
 	@Override
-	public Integer insertBookIntoBooksTable(String title, String isbn, String lastName, String firstName)
+	public Integer insertReservationIntoReservationsTable(String usr, String site, String dateStart, String dateEnd, int cost)
 	{
 		int authorId = -1;
 		int bookId   = -1;
@@ -158,35 +140,3 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
-
-	@Override
-	public List<edu.ycp.cs320.lab03.model.Pair<String, String>> findPasswordByUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Integer insertUserIntoUsersTable(String usrname, String pass) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Integer insertReservationIntoReservationsTable(int usr, String site, String dateStart, String dateEnd,
-			int cost) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<edu.ycp.cs320.lab03.model.Pair<String, Reservation>> findAllReservationsWithUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> findAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
