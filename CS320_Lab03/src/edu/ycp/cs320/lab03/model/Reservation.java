@@ -3,12 +3,14 @@ package edu.ycp.cs320.lab03.model;
 import java.util.ArrayList;
 
 public class Reservation {
+	private int reservID;
 	private int cost;
 	private String room;
 	private String site;
 	private String CheckInDate;
 	private String CheckOutDate;
 	private Boolean cancel;
+	private int userID;
 	
 	
 	public Reservation() {
@@ -53,6 +55,21 @@ public class Reservation {
 	
 	public String getCheckOutDate() {
 		return CheckOutDate;
+	}
+	
+	public void setReservID(int reservID){
+		this.reservID = reservID;
+	}
+	
+	public int getReservID(){
+		return reservID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;		
 	}	
 	
+	public int getUserID(){
+		return userID;
+	}
 }

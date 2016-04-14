@@ -3,7 +3,9 @@ package edu.ycp.cs320.lab03.model;
 import java.util.ArrayList;
 
 public class Account {
+	private int userID;
 	private int payment;
+	private int secCode;
 	private String name;
 	private String username;
 	private String password;
@@ -16,6 +18,10 @@ public class Account {
 	}
 	
 	public void setMin(int payment) {
+		this.payment = payment;
+	}
+	
+	public void setPayment(int payment) {
 		this.payment = payment;
 	}
 	
@@ -39,9 +45,17 @@ public class Account {
 		return username;
 	}
 	
+	public void setSecCode(int secCode){
+		this.secCode = secCode;
+	}
+	
+	public int getSecCode(){
+		return secCode;
+	}
 	public boolean validTest() {
 		return true;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -70,6 +84,14 @@ public class Account {
 
 	public void setReservation(ArrayList<Reservation> reservation) {
 		this.reservation = reservation;
+	}
+
+	public void setUserId(int userID) {
+		this.userID = userID;		
+	}
+	
+	public int getUserId(){
+		return userID;
 	}
 
 }

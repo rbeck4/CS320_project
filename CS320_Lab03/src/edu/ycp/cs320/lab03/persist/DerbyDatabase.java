@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.Pair;
+import edu.ycp.cs320.lab03.model.Pair;
+import edu.ycp.cs320.lab03.model.Account;
+import edu.ycp.cs320.lab03.model.Reservation;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -28,90 +28,37 @@ public class DerbyDatabase implements IDatabase {
 
 	private static final int MAX_ATTEMPTS = 10;
 
-	
-	// transaction that retrieves a Book, and its Author by Title
+
+	// transaction that retrieves a list of Reservations with their Account, given userID
 	@Override
-	public List<Pair<Author, Book>> findAuthorAndBookByTitle(final String title) {
-		return executeTransaction(new Transaction<List<Pair<Author,Book>>>() {
+	public List<Reservation> findAllReservationsWithUser(final String userName) {
+		return executeTransaction(new Transaction<List<Reservation>>() {
 			@Override
-			public List<Pair<Author, Book>> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				try {
-					stmt = conn.prepareStatement(
-							"select authors.*, books.* " +
-							"  from authors, books " +
-							" where authors.author_id = books.author_id " +
-							"   and books.title = ?"
-					);
-					stmt.setString(1, title);
-					
-					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
-					
-					resultSet = stmt.executeQuery();
-					
-					// for testing that a result was returned
-					Boolean found = false;
-					
-					while (resultSet.next()) {
-						found = true;
-						
-						Author author = new Author();
-						loadAuthor(author, resultSet, 1);
-						Book book = new Book();
-						loadBook(book, resultSet, 4);
-						
-						result.add(new Pair<Author, Book>(author, book));
-					}
-					
-					// check if the title was found
-					if (!found) {
-						System.out.println("<" + title + "> was not found in the books table");
-					}
-					
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
-	
-	
-	// transaction that retrieves a list of Books with their Authors, given Author's last name
-	@Override
-	public List<Pair<Author, Book>> findAuthorAndBookByAuthorLastName(final String lastName) {
-		return executeTransaction(new Transaction<List<Pair<Author,Book>>>() {
-			@Override
-			public List<Pair<Author, Book>> execute(Connection conn) throws SQLException {
+			public List<Reservation> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
 				// try to retrieve Authors and Books based on Author's last name, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select authors.*, books.* " +
-							"  from authors, books " +
-							" where authors.author_id = books.author_id " +
-							"       and authors.author_lastname = ? " +
-							"   order by books.title asc, books.isbn asc"
+							"select reservations.*" +
+							"  from reservations " +
+							" where Account.userID = reservations.userID " +
+							"       and account.userName = ? " +
+							"   order by reservations.site asc"
 					);
-					stmt.setString(1, lastName);
+					stmt.setString(1, userName);
 					
 					// establish the list of (Author, Book) Pairs to receive the result
-					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
+					List<Reservation> result = new ArrayList<Reservation>();
 					
 					// execute the query, get the results, and assemble them in an ArrayLsit
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
-						Author author = new Author();
-						loadAuthor(author, resultSet, 1);
-						Book book = new Book();
-						loadBook(book, resultSet, 4);
+						Reservation reserv = new Reservation();
+						loadReservation(reserv, resultSet, 4);
 						
-						result.add(new Pair<Author, Book>(author, book));
+						result.add(reserv);
 					}
 					
 					return result;
@@ -124,24 +71,22 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	
-	// transaction that retrieves all Books in Library, with their respective Authors
+	// transaction that retrieves all Accounts in Library
 	@Override
-	public List<Pair<Author, Book>> findAllBooksWithAuthors() {
-		return executeTransaction(new Transaction<List<Pair<Author,Book>>>() {
+	public List<Account> findAllUsers() {
+		return executeTransaction(new Transaction<List<Account>>() {
 			@Override
-			public List<Pair<Author, Book>> execute(Connection conn) throws SQLException {
+			public List<Account> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
 				try {
 					stmt = conn.prepareStatement(
-							"select authors.*, books.* " +
-							"   from authors, books " +
-							" where authors.author_id = books.author_id " +
-							"   order by books.title asc"
+							"select * from account " +
+							" order by name asc"
 					);
 					
-					List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
+					List<Account> result = new ArrayList<Account>();
 					
 					resultSet = stmt.executeQuery();
 					
@@ -151,63 +96,15 @@ public class DerbyDatabase implements IDatabase {
 					while (resultSet.next()) {
 						found = true;
 						
-						Author author = new Author();
-						loadAuthor(author, resultSet, 1);
-						Book book = new Book();
-						loadBook(book, resultSet, 4);
+						Account acc = new Account();
+						loadAccount(acc, resultSet, 1);
 						
-						result.add(new Pair<Author, Book>(author, book));
-					}
-					
-					// check if any books were found
-					if (!found) {
-						System.out.println("No books were found in the database");
-					}
-					
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}	
-	
-	
-	// transaction that retrieves all Authors in Library
-	@Override
-	public List<Author> findAllAuthors() {
-		return executeTransaction(new Transaction<List<Author>>() {
-			@Override
-			public List<Author> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				try {
-					stmt = conn.prepareStatement(
-							"select * from authors " +
-							" order by author_lastname asc, author_firstname asc"
-					);
-					
-					List<Author> result = new ArrayList<Author>();
-					
-					resultSet = stmt.executeQuery();
-					
-					// for testing that a result was returned
-					Boolean found = false;
-					
-					while (resultSet.next()) {
-						found = true;
-						
-						Author author = new Author();
-						loadAuthor(author, resultSet, 1);
-						
-						result.add(author);
+						result.add(acc);
 					}
 					
 					// check if any authors were found
 					if (!found) {
-						System.out.println("No authors were found in the database");
+						System.out.println("No accounts were found in the database");
 					}
 					
 					return result;
@@ -223,7 +120,7 @@ public class DerbyDatabase implements IDatabase {
 	// transaction that inserts new Book into the Books table
 	// also first inserts new Author into Authors table, if necessary
 	@Override
-	public Integer insertBookIntoBooksTable(final String title, final String isbn, final String lastName, final String firstName) {
+	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String dateStart, final String dateEnd, final int cost) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
@@ -232,25 +129,26 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt3 = null;
 				PreparedStatement stmt4 = null;
 				PreparedStatement stmt5 = null;
+				PreparedStatement stmt6 = null;
 				
 				ResultSet resultSet1 = null;
 //	(unused)	ResultSet resultSet2 = null;
 				ResultSet resultSet3 = null;
 //	(unused)	ResultSet resultSet4 = null;
-				ResultSet resultSet5 = null;				
+				ResultSet resultSet5 = null;
+				ResultSet resultSet6 = null;
 				
-				// for saving author ID and book ID
-				Integer author_id = -1;
-				Integer book_id   = -1;
+				// for saving user ID and reservation ID
+				Integer userID = -1;
+				Integer reservID   = -1;
 
-				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				// try to retrieve userID (if it exists) from DB, for user name, passed into query
 				try {
 					stmt1 = conn.prepareStatement(
-							"select author_id from authors " +
-							"  where author_lastname = ? and author_firstname = ? "
+							"select userID from account " +
+							"  where username = ?"
 					);
-					stmt1.setString(1, lastName);
-					stmt1.setString(2, firstName);
+					stmt1.setString(1, usr);
 					
 					// execute the query, get the result
 					resultSet1 = stmt1.executeQuery();
@@ -259,35 +157,33 @@ public class DerbyDatabase implements IDatabase {
 					// if Author was found then save author_id					
 					if (resultSet1.next())
 					{
-						author_id = resultSet1.getInt(1);
-						System.out.println("Author <" + lastName + ", " + firstName + "> found with ID: " + author_id);						
+						userID = resultSet1.getInt(1);
+						System.out.println("User found with ID " + userID);						
 					}
 					else
 					{
-						System.out.println("Author <" + lastName + ", " + firstName + "> not found");
+						System.out.println("User not found");
 				
-						// if the Author is new, to insert new Author into Authors table
-						if (author_id < 0) {
-							// prepare SQL insert statement to add Author to Authors table
+						// if the User is new, to insert new Account into Account table
+						if (userID < 0) {
+							// prepare SQL insert statement to add account to table
 							stmt2 = conn.prepareStatement(
-									"insert into authors (author_lastname, author_firstname) " +
-									"  values(?, ?) "
+									"insert into account (username) " +
+									"  values(?) "
 							);
-							stmt2.setString(1, lastName);
-							stmt2.setString(2, firstName);
+							stmt2.setString(1, usr);
 							
 							// execute the update
 							stmt2.executeUpdate();
 							
-							System.out.println("New author <" + lastName + ", " + firstName + "> inserted in Authors table");						
+							System.out.println("New account <" + usr + "> inserted in Authors table");						
 						
-							// try to retrieve author_id for new Author - DB auto-generates author_id
+							// try to retrieve usrID for new Account - DB auto-generates userID
 							stmt3 = conn.prepareStatement(
-									"select author_id from authors " +
-									"  where author_lastname = ? and author_firstname = ? "
+									"select userID from account " +
+									"  where userName = ? "
 							);
-							stmt3.setString(1, lastName);
-							stmt3.setString(2, firstName);
+							stmt3.setString(1, usr);
 							
 							// execute the query							
 							resultSet3 = stmt3.executeQuery();
@@ -295,57 +191,61 @@ public class DerbyDatabase implements IDatabase {
 							// get the result - there had better be one							
 							if (resultSet3.next())
 							{
-								author_id = resultSet3.getInt(1);
-								System.out.println("New author <" + lastName + ", " + firstName + "> ID: " + author_id);						
+								userID = resultSet3.getInt(1);
+								System.out.println("New account <" + usr + "> ID: " + userID);						
 							}
 							else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
 							{
-								System.out.println("New author <" + lastName + ", " + firstName + "> not found in Authors table (ID: " + author_id);
+								System.out.println("New account <" + usr + "> not found in Account table (ID: " + userID);
 							}
 						}
 					}
 					
-					// now that we have all the information, insert new Book into Books table
-					// prepare SQL insert statement to add new Book to Books table
+					// now that we have all the information, insert new Reservation into Reservation table
+					// prepare SQL insert statement to add new Reservation to Reservation table
 					stmt4 = conn.prepareStatement(
-							"insert into books (author_id, title, isbn) " +
+							"insert into reservation (usr, site, dateStart, dateEnd, cost) " +
 							"  values(?, ?, ?) "
 					);
-					stmt4.setInt(1, author_id);
-					stmt4.setString(2, title);
-					stmt4.setString(3, isbn);
+					stmt4.setInt(1, userID);
+					stmt4.setString(2, site);
+					stmt4.setString(3, dateStart);
+					stmt4.setString(4, dateEnd);
+					stmt4.setString(5, Integer.toString(cost));
 					
 					// execute the update
 					stmt4.executeUpdate();
 					
-					System.out.println("New book <" + title + "> inserted into Books table");					
+					System.out.println("New reservation <" + site + "> inserted into reservation table");					
 
 					// now retrieve book_id for new Book, so that we can return it
 					// DB auto-generates book_id
 					// prepare SQL statement to retrieve book_id for new Book
 					stmt5 = conn.prepareStatement(
-							"select book_id from books " +
-							"  where author_id = ? and title = ? and isbn = ? "
+							"select reservID from books " +
+							"  where userID = ? and site = ? and dateStart = ? and dateEnd = ? and cost = ?"
 					);
-					stmt5.setInt(1, author_id);
-					stmt5.setString(2, title);
-					stmt5.setString(3, isbn);
-
+					stmt5.setInt(1, userID);
+					stmt5.setString(2, site);
+					stmt5.setString(3, dateStart);
+					stmt5.setString(4, dateEnd);
+					stmt5.setString(5, Integer.toString(cost));
+					
 					// execute the query
 					resultSet5 = stmt5.executeQuery();
 					
 					// get the result - there had better be one
 					if (resultSet5.next())
 					{
-						book_id = resultSet5.getInt(1);
-						System.out.println("New book <" + title + "> ID: " + book_id);						
+						reservID = resultSet5.getInt(1);
+						System.out.println("New reservation <" + site + "> ID: " + reservID);						
 					}
 					else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
 					{
-						System.out.println("New book <" + title + "> not found in Books table (ID: " + book_id);
+						System.out.println("New reservation <" + site + "> not found in Books table (ID: " + reservID);
 					}
 					
-					return book_id;
+					return reservID;
 				} finally {
 					DBUtil.closeQuietly(resultSet1);
 					DBUtil.closeQuietly(stmt1);
@@ -360,6 +260,156 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	// transaction that inserts new accounts into the account table
+		@Override
+		public Integer insertUserIntoAccountTable(final String name, final String userName, final String pass, 
+				final String payment, final String secCode, final String email, final String address) {
+			return executeTransaction(new Transaction<Integer>() {
+				@Override
+				public Integer execute(Connection conn) throws SQLException {
+					PreparedStatement stmt1 = null;
+					PreparedStatement stmt2 = null;
+					PreparedStatement stmt3 = null;
+					PreparedStatement stmt4 = null;
+					PreparedStatement stmt5 = null;
+					PreparedStatement stmt6 = null;
+					PreparedStatement stmt7 = null;
+					PreparedStatement stmt8 = null;
+					
+					ResultSet resultSet1 = null;
+//		(unused)	ResultSet resultSet2 = null;
+					ResultSet resultSet3 = null;
+//		(unused)	ResultSet resultSet4 = null;
+					ResultSet resultSet5 = null;
+					ResultSet resultSet6 = null;
+					ResultSet resultSet7 = null;
+					ResultSet resultSet8 = null;
+					
+					// for saving user ID
+					Integer userID = -1;
+
+					// try to retrieve userID (if it exists) from DB, for user name, passed into query
+					try {
+						stmt1 = conn.prepareStatement(
+								"select userID from account " +
+								"  where username = ?"
+						);
+						stmt1.setString(1, userName);
+						
+						// execute the query, get the result
+						resultSet1 = stmt1.executeQuery();
+
+						
+						// if Account was found then save userID					
+						if (resultSet1.next())
+						{
+							userID = resultSet1.getInt(1);
+							System.out.println("User found with ID " + userID);						
+						}
+						else
+						{
+							System.out.println("User not found");
+					
+							// if the User is new, to insert new Account into Account table
+							if (userID < 0) {
+								// prepare SQL insert statement to add account to table
+								stmt2 = conn.prepareStatement(
+										"insert into account (username) " +
+										"  values(?) "
+								);
+								stmt2.setString(1, userName);
+								
+								// execute the update
+								stmt2.executeUpdate();
+								
+								System.out.println("New account <" + userName + "> inserted in Authors table");						
+							
+								// try to retrieve usrID for new Account - DB auto-generates userID
+								stmt3 = conn.prepareStatement(
+										"select userID from account " +
+										"  where userName = ? "
+								);
+								stmt3.setString(1, userName);
+								
+								// execute the query							
+								resultSet3 = stmt3.executeQuery();
+								
+								// get the result - there had better be one							
+								if (resultSet3.next())
+								{
+									userID = resultSet3.getInt(1);
+									System.out.println("New account <" + userName + "> ID: " + userID);						
+								}
+								else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
+								{
+									System.out.println("New account <" + userName + "> not found in Account table (ID: " + userID);
+								}
+							}
+						}
+						
+						// now that we have all the information, insert new Account into Account table
+						// prepare SQL insert statement to add new Reservation to Reservation table
+						stmt4 = conn.prepareStatement(
+								"insert into Account (name, userName, pass, payment, secCode, email, address) " +
+								"  values(?, ?, ?) "
+						);
+						stmt4.setString(1, name);
+						stmt4.setString(2, userName);
+						stmt4.setString(3, pass);
+						stmt4.setString(4, payment);
+						stmt4.setString(5, secCode);
+						stmt4.setString(6, email);
+						stmt4.setString(7, address);
+						
+						// execute the update
+						stmt4.executeUpdate();
+						
+						System.out.println("New Account <" + name + "> inserted into Account table");					
+
+						// now retrieve AccountID for new account, so that we can return it
+						// DB auto-generates AccountID
+						// prepare SQL statement to retrieve AccountID for new Book
+						stmt5 = conn.prepareStatement(
+								"select reservID from Account " +
+								"  where name = ? and userName = ? and pass = ? and payment = ? and secCode = ? and email = ? and address = ?"
+						);
+						stmt5.setString(1, name);
+						stmt5.setString(2, userName);
+						stmt5.setString(3, pass);
+						stmt5.setString(4, payment);
+						stmt5.setString(5, secCode);
+						stmt5.setString(6, email);
+						stmt5.setString(7, address);
+						
+						// execute the query
+						resultSet5 = stmt5.executeQuery();
+						
+						// get the result - there had better be one
+						if (resultSet5.next())
+						{
+							userID = resultSet5.getInt(1);
+							System.out.println("New account <" + userName + "> ID: " + userID);						
+						}
+						else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
+						{
+							System.out.println("New account <" + userName + "> not found in Books table (ID: " + userID);
+						}
+						
+						return userID;
+					} finally {
+						DBUtil.closeQuietly(resultSet1);
+						DBUtil.closeQuietly(stmt1);
+//		(unused)		DBUtil.closeQuietly(resultSet2);
+						DBUtil.closeQuietly(stmt2);					
+						DBUtil.closeQuietly(resultSet3);
+						DBUtil.closeQuietly(stmt3);					
+	// (unused)			DBUtil.closeQuietly(resultSet4);
+						DBUtil.closeQuietly(stmt4);
+						DBUtil.closeQuietly(resultSet5);
+						DBUtil.closeQuietly(stmt5);					}
+				}
+			});
+		}
 	
 	
 	// wrapper SQL transaction function that calls actual transaction function (which has retries)
@@ -421,21 +471,29 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	// retrieves Author information from query result set
-	private void loadAuthor(Author author, ResultSet resultSet, int index) throws SQLException {
-		author.setAuthorId(resultSet.getInt(index++));
-		author.setLastname(resultSet.getString(index++));
-		author.setFirstname(resultSet.getString(index++));
+	private void loadAccount(Account user, ResultSet resultSet, int index) throws SQLException {
+		user.setUserId(resultSet.getInt(index++));
+		user.setName(resultSet.getString(index++));
+		user.setUsername(resultSet.getString(index++));
+		user.setPassword(resultSet.getString(index++));
+		user.setPayment(Integer.parseInt(resultSet.getString(index++)));
+		user.setSecCode(Integer.parseInt(resultSet.getString(index++)));
+		user.setEmail(resultSet.getString(index++));
+		user.setAddress(resultSet.getString(index++));
 	}
 	
 	// retrieves Book information from query result set
-	private void loadBook(Book book, ResultSet resultSet, int index) throws SQLException {
-		book.setBookId(resultSet.getInt(index++));
-		book.setAuthorId(resultSet.getInt(index++));
-		book.setTitle(resultSet.getString(index++));
-		book.setIsbn(resultSet.getString(index++));
+	private void loadReservation(Reservation reserv, ResultSet resultSet, int index) throws SQLException {
+		reserv.setReservID(resultSet.getInt(index++));
+		reserv.setUserID(resultSet.getInt(index++));
+		reserv.setSite(resultSet.getString(index++));
+		reserv.setRoom(resultSet.getString(index++));
+		reserv.setCheckInDate(resultSet.getString(index++));
+		reserv.setCheckOutDate(resultSet.getString(index++));
+		reserv.setCost(Integer.parseInt(resultSet.getString(index++)));
 	}
 	
-	//  creates the Authors and Books tables
+	//  creates the Account and reservation tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -445,22 +503,30 @@ public class DerbyDatabase implements IDatabase {
 				
 				try {
 					stmt1 = conn.prepareStatement(
-						"create table authors (" +
-						"	author_id integer primary key " +
+						"create table Account (" +
+						"	usrID integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
-						"	author_lastname varchar(40)," +
-						"	author_firstname varchar(40)" +
+						"	name varchar(40)," +
+						"	username varchar(40)" +
+						"	password varchar(40)" +
+						"	payment varchar(16)" +
+						"	secCode varchar(3)" +
+						"	email varchar(40)" +
+						"	address varchar(60)" +
 						")"
 					);	
 					stmt1.executeUpdate();
 					
 					stmt2 = conn.prepareStatement(
-							"create table books (" +
-							"	book_id integer primary key " +
+							"create table reservations (" +
+							"	reservID integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	author_id integer constraint author_id references authors, " +
-							"	title varchar(50)," +
-							"	isbn varchar(20)" +
+							"	userID integer constraint author_id references authors, " +
+							"	site varchar(50)," +
+							"	room varchar(20)" +
+							"	CheckInDate varchar(8)" +
+							"	CheckOutDate varchar(8)" +
+							"	cost varchar(10)" +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -479,43 +545,50 @@ public class DerbyDatabase implements IDatabase {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<Author> authorList;
-				List<Book> bookList;
+				List<Account> accountList;
+				List<Reservation> reservList;
 				
 				try {
-					authorList = InitialData.getAuthors();
-					bookList = InitialData.getBooks();
+					accountList = InitialData.getAccount();
+					reservList = InitialData.getReservation();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertAuthor = null;
-				PreparedStatement insertBook = null;
+				PreparedStatement insertAccount = null;
+				PreparedStatement insertReservation = null;
 
 				try {
-					insertAuthor = conn.prepareStatement("insert into authors (author_lastname, author_firstname) values (?, ?)");
-					for (Author author : authorList) {
+					insertAccount = conn.prepareStatement("insert into Account (name, usrName, password, payment,secCode, email, address) values (?, ?, ?, ?, ?, ?)");
+					for (Account acc : accountList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAuthor.setString(1, author.getLastname());
-						insertAuthor.setString(2, author.getFirstname());
-						insertAuthor.addBatch();
+						insertAccount.setString(1, acc.getName());
+						insertAccount.setString(2, acc.getUsername());
+						insertAccount.setString(3, acc.getPassword());
+						insertAccount.setString(4, Integer.toString(acc.getPayment()));
+						insertAccount.setString(4, Integer.toString(acc.getSecCode()));
+						insertAccount.setString(5, acc.getEmail());
+						insertAccount.setString(6, acc.getAddress());
+						insertAccount.addBatch();
 					}
-					insertAuthor.executeBatch();
+					insertAccount.executeBatch();
 					
-					insertBook = conn.prepareStatement("insert into books (author_id, title, isbn) values (?, ?, ?)");
-					for (Book book : bookList) {
-//						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
-						insertBook.setInt(1, book.getAuthorId());
-						insertBook.setString(2, book.getTitle());
-						insertBook.setString(3, book.getIsbn());
-						insertBook.addBatch();
+					insertReservation = conn.prepareStatement("insert into reservations (author_id, title, isbn) values (?, ?, ?)");
+					for (Reservation reserv : reservList) {
+//					//	insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
+						insertReservation.setInt(1, reserv.getUserID());
+						insertReservation.setString(2, reserv.getSite());
+						insertReservation.setString(3, reserv.getCheckInDate());
+						insertReservation.setString(4, reserv.getCheckOutDate());
+						insertReservation.setString(5, Integer.toString(reserv.getCost()));
+						insertReservation.addBatch();
 					}
-					insertBook.executeBatch();
+					insertReservation.executeBatch();
 					
 					return true;
 				} finally {
-					DBUtil.closeQuietly(insertBook);
-					DBUtil.closeQuietly(insertAuthor);
+					DBUtil.closeQuietly(insertReservation);
+					DBUtil.closeQuietly(insertAccount);
 				}
 			}
 		});
