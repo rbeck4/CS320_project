@@ -3,8 +3,10 @@ package edu.ycp.cs320.lab03.model;
 public class SearchRequest {
 	private int numberResults;
 	private int roomType;
-	private String CheckInDate;
-	private String CheckOutDate;
+	private String CheckInDay;
+	private String CheckOutDay;
+	private String CheckInMonth;
+	private String CheckOutMonth;
 	private String site;
 	private String hotelPreference;
 	
@@ -26,19 +28,19 @@ public class SearchRequest {
 		return roomType;
 	}
 
-	public void setCheckInDate(String CheckInDate) {
-		this.CheckInDate = CheckInDate;
+	public void setCheckInDay(String CheckInDay) {
+		this.CheckInDay = CheckInDay;
 	}
 	
-	public String getCheckInDate() {
-		return CheckInDate;
+	public String getCheckInDay() {
+		return CheckInDay;
 	}
-	public void setCheckOutDate(String CheckOutDate) {
-		this.CheckOutDate = CheckOutDate;
+	public void setCheckOutDay(String CheckOutDay) {
+		this.CheckOutDay = CheckOutDay;
 	}
 	
-	public String getCheckOutDate() {
-		return CheckOutDate;
+	public String getCheckOutDay() {
+		return CheckOutDay;
 	}	
 	public void setSite(String site) {
 		this.site = site;
@@ -51,5 +53,21 @@ public class SearchRequest {
 	}
 	public String getHotelPreference() {
 		return hotelPreference;
+	}
+
+	public void setCheckOutMonth(String CheckOutMonth) {
+		this.CheckOutMonth = CheckOutMonth;
+		
+	}
+	public String getCheckOutMonth() {
+		return CheckOutMonth;
+		
+	}
+	public void setCheckInMonth(String CheckInMonth) {
+		this.CheckInMonth = CheckInMonth;
+		
+	}
+	public String getCheckInMonth() {
+		return CheckInMonth;
 	}
 }

@@ -35,9 +35,9 @@ public class AccountServlet extends HttpServlet {
 		String errorMessage = null;
 		Double result = null;
 		ArrayList<String> reservation = new ArrayList<String>();
-		reservation.add("reservation 102");
-		reservation.add("reservation 202");
-		reservation.add("reservation 303");
+		//reservation.add("reservation 102");
+		//reservation.add("reservation 202");
+		//reservation.add("reservation 303");
 		
 		try {
 				errorMessage = "Please specify two numbers";
