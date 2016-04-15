@@ -10,5 +10,6 @@ public interface IDatabase {
 	public Integer insertUserIntoAccountTable(String name, String username, String pass, String payment, String secCode, String email, String address);
 	public Integer insertReservationIntoReservationsTable(String usr, String site, String dateStart, String dateEnd, int cost);
 	public List<Reservation> findAllReservationsWithUser(String userName);
-	public List<Account> findAllUsers();
+	public List<Account> findUsersWithUsername(String userName);
+	//public List<Reservation> removeReservationBySiteandUsername(String site, String userName);
 	}
