@@ -73,10 +73,10 @@ public class DerbyDatabase implements IDatabase {
 	
 	// transaction that retrieves all Accounts in Library
 	@Override
-	public List<Account> findUsersWithUsername(final String userName) {
-		return executeTransaction(new Transaction<List<Account>>() {
+	public Account findUsersWithUsername(final String userName) {
+		return executeTransaction(new Transaction<Account>() {
 			@Override
-			public List<Account> execute(Connection conn) throws SQLException {
+			public Account execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
@@ -89,17 +89,10 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setString(1, userName);
 					
 					// establish the list of (Author, Book) Pairs to receive the result
-					List<Account> result = new ArrayList<Account>();
+					Account result = new Account();
 					
 					// execute the query, get the results, and assemble them in an ArrayLsit
-					resultSet = stmt.executeQuery();
-					while (resultSet.next()) {
-						Account acc = new Account();
-						loadAccount(acc, resultSet, 4);
-						
-						result.add(acc);
-					}
-					
+					resultSet = stmt.executeQuery();					
 					return result;
 				} finally {
 					DBUtil.closeQuietly(resultSet);

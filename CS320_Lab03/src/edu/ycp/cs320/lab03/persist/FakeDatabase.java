@@ -36,48 +36,10 @@ public class FakeDatabase implements IDatabase {
 		}
 	}
 	
-	// query that retrieves all Books, for the Author's last name
+	// query that retrieves all reservations belonging to a user from DB
 	@Override
-	public List<Pair<Author, Book>> findAuthorAndBookByAuthorLastName(String lastName)
-	{
-		// create list of <Author, Book> for returning result of query
-		List<Pair<Author, Book>> result = new ArrayList<Pair<Author, Book>>();
-		
-		// search through table of Books
-		for (Book book : bookList) {
-			for (Author author : authorList) {
-				if (book.getAuthorId() == author.getAuthorId()) {
-					if (author.getLastname().equals(lastName)) {
-						// if this book is by the specified author, add it to the result list
-						result.add(new Pair<Author, Book>(author, book));						
-					}
-				}
-			}
-		}
-		return result;
-	}
-
-	
-	// query that retrieves all Books, with their Authors, from DB
-	@Override
-	public List<Pair<Author, Book>> FindAllReservationsWithuser() {
-		List<Pair<Author, Book>> result = new ArrayList<Pair<Author,Book>>();
-		for (Book book : bookList) {
-			Author author = findAuthorByAuthorId(book.getAuthorId());
-			result.add(new Pair<Author, Book>(author, book));
-		}
-		return result;
-	}
-		
-
-	// query that retrieves all Authors from DB
-	@Override
-	public List<Author> findAllAuthors() {
-		List<Author> result = new ArrayList<Author>();
-		for (Author author : authorList) {
-			result.add(author);
-		}
-		return result;
+	public List<Reservation> findAllReservationsWithUser(String userName) {
+		return findAllReservationsWithUser(userName);
 	}
 	
 	
@@ -130,13 +92,15 @@ public class FakeDatabase implements IDatabase {
 		return bookId;
 	}
 	
-
-	// query that retrieves an Author based on author_id
-	private Author findAuthorByAuthorId(int authorId) {
-		for (Author author : authorList) {
-			if (author.getAuthorId() == authorId) {
-				return author;
+	// query that retrieves an Account based on userID
+	@Override
+	public Account findUsersWithUsername(String userName) {
+		for (Account acc : accountList) {
+			String temp = acc.getUsername();
+			if (temp.equals(userName)) {
+				return acc;
 			}
 		}
 		return null;
 	}
+}

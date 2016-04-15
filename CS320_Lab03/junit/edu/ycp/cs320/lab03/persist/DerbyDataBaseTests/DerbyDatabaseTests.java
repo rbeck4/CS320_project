@@ -1,4 +1,4 @@
-package edu.ycp.cs320.lab03.persist;
+package edu.ycp.cs320.lab03.persist.DerbyDataBaseTests;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,10 @@ import org.junit.Test;
 
 import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.Reservation;
+import edu.ycp.cs320.lab03.persist.DatabaseProvider;
+import edu.ycp.cs320.lab03.persist.DerbyDatabase;
 //import edu.ycp.cs320.lab03.model.Pair;
+import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class DerbyDatabaseTests {
 
@@ -21,7 +24,7 @@ public class DerbyDatabaseTests {
 	
 	List<Account> Account = null;
 	List<Reservation>   reservations  = null;
-	List<Account> accountList = null;
+	Account accountList = null;
 	List<Reservation> reservationList = null;
 	String userName = "Ryan";
 	
@@ -77,25 +80,21 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing findAllAccounts ***");
 
 		// get the list of (Accounts) pairs from DB
-		List<Account> accountList = db.findUsersWithUsername(userName);
+		Account acc = db.findUsersWithUsername(userName);
 
 		// NOTE: this is a simple test to check if no results were found in the DB
-		if (accountList.isEmpty()) {
+		if (acc == null) {
 			System.out.println("No accounts found for user" + userName);
 			fail("No accounts returned from DB");
 		}
 		// NOTE: assembling the results into Author and Book lists so that they could be
 		//       inspected for correct content - well-formed objects with correct content
 		else {
-			Account = new ArrayList<Account>();
-			for (int i = 0; i < accountList.size(); i++) {
-				Account acc = accountList.get(i);
-				Account.add(acc);
 				System.out.println(acc.getUserId() + ", " + acc.getName() + ", " + acc.getUsername() + acc.getPassword() + ", "
 						+ acc.getPayment() + ", " + acc.getSecCode() + ", " + acc.getEmail() + ", " + acc.getAddress());
 			}			
-		}
 	}
+	
 
 	@Test
 	public void testInsertReservationIntoReservationsTable() {
