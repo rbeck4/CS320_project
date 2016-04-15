@@ -90,18 +90,18 @@
   				<td class="RoomSelection"><input type="number" name="roomType" value="${roomType}" /></td>
   				</tr><tr>
   				<td class="City">City:</td>
-  				<td class="City"><input type="number" name="roomType" value="${roomType}" /></td>
+  				<td class="City"><input type="text" name="roomType" value="Baltimore" /></td>
   				</tr>
   			</table>
   			<input class="selectButton" type="Submit" name="select" value="Search">
   			<h2 class="titleSR">Search Results</h2>
 			<table>
 				<tr>
-	  			<td>Hotel</td>
+	  			<td>HOTEL</td>
 	  			<td></td>
-	   			<td>Room</td>
+	   			<td>ROOM</td>
 	   			<td></td>
-	  			<td>Price</td>
+	  			<td>PRICE</td>
 	  			</tr>
 	  			<tr>
 	  			<td>${hotels0}</td>
