@@ -17,8 +17,8 @@ public class SearchRequestModelTest {
 		model = new SearchRequest();
 		controller = new SearchRequestController();
 		
-		model.setCheckInDay("12");
-		model.setCheckOutDay("16");
+		model.setCheckInDay("2016-06-12");
+		model.setCheckOutDay("2016-06-16");
 		model.setRoomType(2);
 		
 		controller.setModel(model);
@@ -26,13 +26,13 @@ public class SearchRequestModelTest {
 	
 	@Test
 	public void testCheckInInput() {
-		String currentCheckInDate = "12";
+		String currentCheckInDate = "2016-06-12";
 		assertTrue(model.getCheckInDay()== currentCheckInDate);
 	}
 	
 	@Test
 	public void testCheckOutInput() {
-		String currentCheckOutDate = "16";
+		String currentCheckOutDate = "2016-06-16";
 		assertTrue(model.getCheckOutDay()== currentCheckOutDate);
 	}
 	
