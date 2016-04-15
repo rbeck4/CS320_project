@@ -1,5 +1,9 @@
 package edu.ycp.cs320.lab03.model;
 
+import java.util.ArrayList;
+
+import org.jsoup.nodes.Element;
+
 public class SearchRequest {
 	private int numberResults;
 	private int roomType;
@@ -9,6 +13,9 @@ public class SearchRequest {
 	private String CheckOutMonth;
 	private String site;
 	private String hotelPreference;
+	public ArrayList<String> HotelNames;
+	private ArrayList<String> Rooms;
+	private ArrayList<String> Prices;
 	
 	public SearchRequest() {
 	}
@@ -69,5 +76,28 @@ public class SearchRequest {
 	}
 	public String getCheckInMonth() {
 		return CheckInMonth;
+	}
+
+	public void setHotelNames(ArrayList<String> HotelNames) {
+		// TODO Auto-generated method stub
+		this.HotelNames = HotelNames;
+	}
+	public ArrayList<String> getHotelNames(){
+		return HotelNames;
+	}
+
+	public void setPrices(ArrayList<String> Prices) {
+		// TODO Auto-generated method stub
+		this.Prices = Prices;
+	}
+	public ArrayList<String> getPrices(){
+		return Prices;
+	}
+	public void setRooms(ArrayList<String> Rooms) {
+		// TODO Auto-generated method stub
+		this.Rooms = Rooms;
+	}
+	public ArrayList<String> getRooms(){
+		return Rooms;
 	}
 }

@@ -39,13 +39,19 @@
 		}
 		form.search {
 			text-align: left;
-			margin-left: 500px;
+			padding-top: 20px;
+		}
+		form.search {
+			text-align: left;
+			padding-top: 20px;
 		}
 		input.searchButton {
+			
 			font-size: 150%;
 		}
 		input.selectButton {
 			
+			font-size: 150%;
 		}
 
 		</style>
@@ -82,13 +88,110 @@
 				<tr>
 				<td class="RoomSelection">Room Selection:</td>
   				<td class="RoomSelection"><input type="number" name="roomType" value="${roomType}" /></td>
+  				</tr><tr>
+  				<td class="City">City:</td>
+  				<td class="City"><input type="number" name="roomType" value="${roomType}" /></td>
   				</tr>
   			</table>
-  			<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
+  			<input class="selectButton" type="Submit" name="select" value="Search">
+  			<h2 class="titleSR">Search Results</h2>
+			<table>
+				<tr>
+	  			<td>Hotel</td>
+	  			<td></td>
+	   			<td>Room</td>
+	   			<td></td>
+	  			<td>Price</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels0}</td>
+	  			<td> | </td>
+	  			<td>${rooms0}</td>
+	  			<td> | </td>
+	   			<td>${prices0}</td>
+	  			</tr>
+				<tr>
+	  			<td>${hotels1}</td>
+	  			<td> | </td>
+	  			<td>${rooms1}</td>
+	  			<td> | </td>
+	   			<td>${prices1}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels2}</td>
+	  			<td> | </td>
+	  			<td>${rooms2}</td>
+	  			<td> | </td>
+	   			<td>${prices2}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels3}</td>
+	  			<td> | </td>
+	  			<td>${rooms3}</td>
+	  			<td> | </td>
+	   			<td>${prices3}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels4}</td>
+	  			<td> | </td>
+	  			<td>${rooms4}</td>
+	  			<td> | </td>
+	   			<td>${prices4}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels5}</td>
+	  			<td> | </td>
+	  			<td>${rooms5}</td>
+	  			<td> | </td>
+	   			<td>${prices5}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels6}</td>
+	  			<td> | </td>
+	  			<td>${rooms6}</td>
+	  			<td> | </td>
+	   			<td>${prices6}</td>
+	  			</tr>
+				<tr>
+	  			<td>${hotels7}</td>
+	  			<td> | </td>
+	  			<td>${rooms7}</td>
+	  			<td> | </td>
+	   			<td>${prices7}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels8}</td>
+	  			<td> | </td>
+	  			<td>${rooms8}</td>
+	  			<td> | </td>
+	   			<td>${prices8}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels9}</td>
+	  			<td> | </td>
+	  			<td>${rooms9}</td>
+	  			<td> | </td>
+	   			<td>${prices9}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels10}</td>
+	  			<td> | </td>
+	  			<td>${rooms10}</td>
+	  			<td> | </td>
+	   			<td>${prices10}</td>
+	  			</tr>
+	  			<tr>
+	  			<td>${hotels11}</td>
+	  			<td> | </td>
+	  			<td>${rooms11}</td>
+	  			<td> | </td>
+	   			<td>${prices11}</td>
+	  			</tr>
+			</table> 
   		</form>
   		
   		<form class="search" action="../HotelReservationSystem/Results">
-     		<input class="searchButton" type="Submit" name="search" value="Search">
+     		<input class="searchButton" type="Submit" name="search" value="Reserve">
  		</form> 
 		
 		

@@ -9,16 +9,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import edu.ycp.cs320.lab03.model.SearchRequest;
+//import edu.ycp.cs320.lab03.model.Results;
 
 public class SearchRequestController {
 	
 	private SearchRequest model;
+	//private Results modelA;
 
 	public void setModel(SearchRequest model) {
 		// TODO Auto-generated method stub
 		this.model = model;
 	}
-	
+
 	public void webScraper(String checkInD, String checkInM, String checkOutD, String checkOutM) {
 		// TODO Auto-generated method stub
 		Document doc;
@@ -45,18 +47,30 @@ public class SearchRequestController {
 		      //System.out.println("First Hotel: " + prices.get(0).text());
 		      
 		      ArrayList<String> hotelNames = new ArrayList<String>();
-		      hotelNames.add(hotels.get(0).text());
+		      ArrayList<String> hotelPrices = new ArrayList<String>();
+		      ArrayList<String> hotelRooms = new ArrayList<String>();
 		      
 		      //print to console scraped info
 		      for(int i = 0; i < 15; i++) {   
 		    	    System.out.println("Hotel: " + hotels.get(i).text());
 		    	    System.out.println("Price: " + prices.get(i).text());
 		    	    System.out.println("Room type: " + rooms.get(i).text());
+		    	    hotelNames.add(hotels.get(i).text());
+		    	    hotelPrices.add(prices.get(i).text());
+		    	    hotelRooms.add(rooms.get(i).text());
 		      } 
 		      
-		      for (Element price : prices) {
+		      
+		      //model.setHotelNames(hotelNames);
+		      model.setHotelNames(hotelNames); 
+		      model.setPrices(hotelPrices); 
+		      model.setRooms(hotelRooms); 
+		      System.out.println(model.getHotelNames().get(1));
+		      System.out.println(model.getPrices().get(1));
+		      System.out.println(model.getRooms().get(1));
+		      //for (Element price : prices) {
 			    //System.out.println("Price: " + price.text());
-			  }
+			  //}
 		      //for (Element room : rooms) {
 				  //  System.out.println("Room type: " + room.text());
 		     // }
