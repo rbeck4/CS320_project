@@ -106,7 +106,7 @@ public class DerbyDatabase implements IDatabase {
 	// transaction that inserts new Book into the Books table
 	// also first inserts new Author into Authors table, if necessary
 	@Override
-	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String dateStart, final String dateEnd, final int cost) {
+	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String room, final String dateStart, final String dateEnd, final int cost) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
@@ -116,6 +116,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt4 = null;
 				PreparedStatement stmt5 = null;
 				PreparedStatement stmt6 = null;
+				PreparedStatement stmt7 = null;
 				
 				ResultSet resultSet1 = null;
 //	(unused)	ResultSet resultSet2 = null;
@@ -123,6 +124,7 @@ public class DerbyDatabase implements IDatabase {
 //	(unused)	ResultSet resultSet4 = null;
 				ResultSet resultSet5 = null;
 				ResultSet resultSet6 = null;
+				ResultSet resultSet7 = null;
 				
 				// for saving user ID and reservation ID
 				Integer userID = -1;
@@ -162,7 +164,7 @@ public class DerbyDatabase implements IDatabase {
 							// execute the update
 							stmt2.executeUpdate();
 							
-							System.out.println("New account <" + usr + "> inserted in Authors table");						
+							System.out.println("New account <" + usr + "> inserted in Account table");						
 						
 							// try to retrieve usrID for new Account - DB auto-generates userID
 							stmt3 = conn.prepareStatement(
@@ -195,9 +197,10 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt4.setInt(1, userID);
 					stmt4.setString(2, site);
-					stmt4.setString(3, dateStart);
-					stmt4.setString(4, dateEnd);
-					stmt4.setString(5, Integer.toString(cost));
+					stmt4.setString(3, room);
+					stmt4.setString(4, dateStart);
+					stmt4.setString(5, dateEnd);
+					stmt4.setString(6, Integer.toString(cost));
 					
 					// execute the update
 					stmt4.executeUpdate();
@@ -209,13 +212,14 @@ public class DerbyDatabase implements IDatabase {
 					// prepare SQL statement to retrieve book_id for new Book
 					stmt5 = conn.prepareStatement(
 							"select reservID from books " +
-							"  where userID = ? and site = ? and dateStart = ? and dateEnd = ? and cost = ?"
+							"  where userID = ? and site = ? and room = ? and dateStart = ? and dateEnd = ? and cost = ?"
 					);
 					stmt5.setInt(1, userID);
 					stmt5.setString(2, site);
-					stmt5.setString(3, dateStart);
-					stmt5.setString(4, dateEnd);
-					stmt5.setString(5, Integer.toString(cost));
+					stmt5.setString(3, room);
+					stmt5.setString(4, dateStart);
+					stmt5.setString(5, dateEnd);
+					stmt5.setString(6, Integer.toString(cost));
 					
 					// execute the query
 					resultSet5 = stmt5.executeQuery();

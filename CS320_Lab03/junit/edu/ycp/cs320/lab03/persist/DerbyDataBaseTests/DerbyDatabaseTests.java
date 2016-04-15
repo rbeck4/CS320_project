@@ -102,12 +102,13 @@ public class DerbyDatabaseTests {
 
 		String usrID = Integer.toString(2);
 		String site = "Home";
+		String room = "420";
 		String dateStart = Integer.toString(10-14-16);
 		String dateEnd = Integer.toString(10-16-16);
 		int cost = 15;
 				
 		// insert new book (and possibly new author) into DB
-		Integer reservID = db.insertReservationIntoReservationsTable(usrID, site, dateStart, dateEnd, cost);;
+		Integer reservID = db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);;
 
 		// check the return value - should be a reservationID > 0
 		if (reservID > 0)

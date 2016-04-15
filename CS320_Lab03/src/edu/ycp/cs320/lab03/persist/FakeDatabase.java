@@ -49,48 +49,6 @@ public class FakeDatabase implements IDatabase {
 	// deleting a Book/Author in the list would mean updating the ID's, since other list entries are likely to move to fill the space.
 	// or we could mark Book/Author entries as deleted, and leave them open for reuse, but we could not delete an Author
 	//    unless they have no Books in the Books table
-	@Override
-	public Integer insertReservationIntoReservationsTable(String usr, String site, String dateStart, String dateEnd, int cost)
-	{
-		int authorId = -1;
-		int bookId   = -1;
-		
-		// search Authors list for the Author, by first and last name, get author_id
-		for (Author author : authorList) {
-			if (author.getLastname().equals(lastName) && author.getFirstname().equals(firstName)) {
-				authorId = author.getAuthorId();
-			}
-		}
-		
-		// if the Author wasn't found in Authors list, we have to add new Author to Authors list
-		if (authorId < 0) {
-			// set author_id to size of Authors list + 1 (before adding Author)
-			authorId = authorList.size() + 1;
-			
-			// add new Author to Authors list
-			Author newAuthor = new Author();			
-			newAuthor.setAuthorId(authorId);
-			newAuthor.setLastname(lastName);
-			newAuthor.setFirstname(firstName);
-			authorList.add(newAuthor);
-			
-			System.out.println("New author (ID: " + authorId + ") " + "added to Authors table: <" + lastName + ", " + firstName + ">");
-		}
-
-		// set book_id to size of Books list + 1 (before adding Book)
-		bookId = bookList.size() + 1;
-
-		// add new Book to Books list
-		Book newBook = new Book();
-		newBook.setBookId(bookId);
-		newBook.setAuthorId(authorId);
-		newBook.setTitle(title);
-		newBook.setIsbn(isbn);
-		bookList.add(newBook);
-		
-		// return new Book Id
-		return bookId;
-	}
 	
 	// query that retrieves an Account based on userID
 	@Override
@@ -103,4 +61,69 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+
+	@Override
+	public Integer insertUserIntoAccountTable(String name, String username, String pass, String payment, String secCode,
+			String email, String address) {
+	
+		int accountID = accountList.size()+1;
+		
+		Account newAcc = new Account();
+		newAcc.setUserId(accountID);
+		newAcc.setName(name);
+		newAcc.setUsername(username);
+		newAcc.setPassword(pass);
+		newAcc.setPayment(Integer.parseInt(payment));
+		newAcc.setSecCode(Integer.parseInt(secCode));
+		newAcc.setEmail(email);
+		newAcc.setAddress(address);
+		accountList.add(newAcc);
+		
+		// return new Account Id
+		return accountID;
+	}
+
+	@Override
+	public Integer insertReservationIntoReservationsTable(String usr, String site, String room, String dateStart,
+			String dateEnd, int cost) {
+		int reservID  = -1;
+		int accountID = -1;
+		
+		// search Authors list for the Author, by first and last name, get author_id
+		for (Account acc : accountList) {
+			if (Integer.toString(acc.getUserId()).equals(usr)) {
+				accountID = acc.getUserId();
+			}
+		}
+		
+		// if the Author wasn't found in Authors list, we have to add new Author to Authors list
+		if (accountID < 0) {
+			// set author_id to size of Authors list + 1 (before adding Author)
+			accountID = accountList.size() + 1;
+			
+			// add new Account to Account list
+			Account newAccount = new Account();			
+			newAccount.setUserId(accountID);
+			
+			System.out.println("New user (ID: " + accountID + ")");
+		}
+
+		// set reservation ID to size of Reservation list + 1
+		reservID = reservList.size() + 1;
+
+		// add new reservation to reservations list
+		Reservation newReserv = new Reservation();
+		newReserv.setReservID(reservID);
+		newReserv.setUserID(accountID);
+		newReserv.setSite(site);
+		newReserv.setRoom(room);
+		newReserv.setCheckInDate(dateStart);
+		newReserv.setCheckOutDate(dateEnd);
+		newReserv.setCost(cost);
+		reservList.add(newReserv);
+		
+		// return new Reservation Id
+		return reservID;
+	}
 }
+

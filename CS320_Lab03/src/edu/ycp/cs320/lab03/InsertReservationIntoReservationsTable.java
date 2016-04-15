@@ -7,7 +7,7 @@ import edu.ycp.cs320.lab03.persist.DatabaseProvider;
 import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class InsertReservationIntoReservationsTable {
-	public static void main(String usr, String site, String dateStart, String dateEnd, int cost) throws Exception {
+	public static void main(String usr, String site, String room, String dateStart, String dateEnd, int cost) throws Exception {
 		/*Scanner keyboard = new Scanner(System.in);
 
 		// Create the default IDatabase instance
@@ -27,7 +27,7 @@ public class InsertReservationIntoReservationsTable {
 		*/
 		// get the DB instance and execute the transaction
 		IDatabase db = DatabaseProvider.getInstance();
-		Integer reserv_id = db.insertReservationIntoReservationsTable(usr, site, dateStart, dateEnd, cost);
+		Integer reserv_id = db.insertReservationIntoReservationsTable(usr, site, room, dateStart, dateEnd, cost);
 		
 		// check if the insertion succeeded
 		if (reserv_id > 0)
