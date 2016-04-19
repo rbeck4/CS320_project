@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Account {
 	private int userID;
-	private int payment;
+	private double payment;
 	private int secCode;
 	private String name;
 	private String username;
@@ -21,11 +21,11 @@ public class Account {
 		this.payment = payment;
 	}
 	
-	public void setPayment(int payment) {
+	public void setPayment(double payment) {
 		this.payment = payment;
 	}
 	
-	public int getPayment() {
+	public double getPayment() {
 		return payment;
 	}
 	

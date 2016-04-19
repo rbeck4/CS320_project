@@ -1,6 +1,6 @@
 package edu.ycp.cs320.lab03;
 
-//import java.util.List;
+import java.util.List;
 import java.util.Scanner;
 
 import edu.ycp.cs320.lab03.model.Account;
@@ -16,15 +16,15 @@ public class FindUserWithUsername {
 		
 		// get the DB instance and execute transaction
 		IDatabase db = DatabaseProvider.getInstance();
-		Account userList = db.findUsersWithUsername(userName);
+		List<Account> userList = db.findUsersWithUsername(userName);
 		
 		// check if anything was returned and output the list
 		if (userList == null) {
 			System.out.println("There are no users in the database");
 		}
 		else {
-			System.out.println(userList.getName());
-			
+			Account usr = userList.get(0);
+			System.out.println(usr.getUsername());			
 		}
 	}
 }

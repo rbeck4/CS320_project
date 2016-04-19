@@ -1,8 +1,11 @@
 package edu.ycp.cs320.lab03.model;
 
+import java.util.ArrayList;
+
 public class Results {
 	
 	private int reservation;
+	private ArrayList<String> HotelNames;
 	
 	public Results() {
 	}
@@ -14,6 +17,6 @@ public class Results {
 	public int getReservation() {
 		return reservation;
 	}
-	
+
 	
 }

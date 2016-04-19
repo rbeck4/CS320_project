@@ -12,9 +12,10 @@ public class FakeDatabase implements IDatabase {
 	
 	private List<Account> accountList;
 	private List<Reservation> reservList;
+	private List<Account> act;
 	
 	// Fake database constructor - initializes the DB
-	// the DB only consists for a List of Authors and a List of Books
+	// the DB only consists for a List of  and a List of Books
 	public FakeDatabase() {
 		accountList = new ArrayList<Account>();
 		reservList = new ArrayList<Reservation>();
@@ -22,7 +23,7 @@ public class FakeDatabase implements IDatabase {
 		// Add initial data
 		readInitialData();
 		
-//		System.out.println(authorList.size() + " authors");
+//		System.out.println(List.size() + " ");
 //		System.out.println(bookList.size() + " books");
 	}
 
@@ -43,28 +44,28 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	
-	// query that inserts a new Book, and possibly new Author, into Books and Authors lists
-	// insertion requires that we maintain Book and Author id's
+	// query that inserts a new Reservation, and possibly new Account
+	// insertion requires that we maintain Reservation and user ID's
 	// this can be a real PITA, if we intend to use the IDs to directly access the ArrayLists, since
-	// deleting a Book/Author in the list would mean updating the ID's, since other list entries are likely to move to fill the space.
-	// or we could mark Book/Author entries as deleted, and leave them open for reuse, but we could not delete an Author
-	//    unless they have no Books in the Books table
+	// deleting a Reservation/Account in the list would mean updating the ID's, since other list entries are likely to move to fill the space.
+	// or we could mark Reservation/Account entries as deleted, and leave them open for reuse, but we could not delete an Account
+	//    unless they have no Reservations in the table
 	
 	// query that retrieves an Account based on userID
 	@Override
-	public Account findUsersWithUsername(String userName) {
+	public List<Account> findUsersWithUsername(String userName) {
 		for (Account acc : accountList) {
 			String temp = acc.getUsername();
 			if (temp.equals(userName)) {
-				return acc;
+				act.add(acc);
 			}
 		}
-		return null;
+		return act;
 	}
 
 	@Override
-	public Integer insertUserIntoAccountTable(String name, String username, String pass, String payment, String secCode,
-			String email, String address) {
+	public Integer insertUserIntoAccountTable(String name, String username, String pass, String payment, 
+			String secCode, String email, String address) {
 	
 		int accountID = accountList.size()+1;
 		
@@ -73,7 +74,7 @@ public class FakeDatabase implements IDatabase {
 		newAcc.setName(name);
 		newAcc.setUsername(username);
 		newAcc.setPassword(pass);
-		newAcc.setPayment(Integer.parseInt(payment));
+		newAcc.setPayment(Double.parseDouble(payment));
 		newAcc.setSecCode(Integer.parseInt(secCode));
 		newAcc.setEmail(email);
 		newAcc.setAddress(address);
@@ -85,20 +86,20 @@ public class FakeDatabase implements IDatabase {
 
 	@Override
 	public Integer insertReservationIntoReservationsTable(String usr, String site, String room, String dateStart,
-			String dateEnd, int cost) {
+			String dateEnd, String cost) {
 		int reservID  = -1;
 		int accountID = -1;
 		
-		// search Authors list for the Author, by first and last name, get author_id
+		// search Reservation list for the Reservation, by userID, get reservID
 		for (Account acc : accountList) {
 			if (Integer.toString(acc.getUserId()).equals(usr)) {
 				accountID = acc.getUserId();
 			}
 		}
 		
-		// if the Author wasn't found in Authors list, we have to add new Author to Authors list
+		// if the Account wasn't found in Reservation list, we have to add new Account to Accounts list
 		if (accountID < 0) {
-			// set author_id to size of Authors list + 1 (before adding Author)
+			// set userID to size of Account list + 1 (before adding Account)
 			accountID = accountList.size() + 1;
 			
 			// add new Account to Account list
@@ -119,7 +120,7 @@ public class FakeDatabase implements IDatabase {
 		newReserv.setRoom(room);
 		newReserv.setCheckInDate(dateStart);
 		newReserv.setCheckOutDate(dateEnd);
-		newReserv.setCost(cost);
+		newReserv.setCost(Integer.parseInt(cost));
 		reservList.add(newReserv);
 		
 		// return new Reservation Id

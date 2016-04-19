@@ -28,10 +28,10 @@ public class InsertUserIntoAccountTable {
 		*/
 		// get the DB instance and execute the transaction
 		IDatabase db = DatabaseProvider.getInstance();
-		Integer usr_id = db.insertUserIntoAccountTable(name, username, pass, payment, secCode, email, address);
+		Integer user_id = db.insertUserIntoAccountTable(name, username, pass, payment, secCode, email, address);
 		
 		// check if the insertion succeeded
-		if (usr_id > 0)
+		if (user_id > 0)
 		{
 			System.out.println("New user " + username + " account succesfully created.");
 		}

@@ -56,6 +56,7 @@ public class SearchRequestServlet extends HttpServlet {
 				System.out.println(CheckOutDay);
 				System.out.println(roomType);
 				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth);
+				//System.out.println(model.getHotelNames().get(1));
 				//resp.sendRedirect("/HotelReservationSystem/Results");
 			}	
 		} catch (NumberFormatException e) {
@@ -69,7 +70,44 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("CheckOutMonth", req.getParameter("CheckOutMonth"));
 		req.setAttribute("roomType", req.getParameter("roomType"));
 		
+	
 		// Add result objects as request attributes
+		req.setAttribute("hotels0", model.getHotelNames().get(0));
+		req.setAttribute("prices0", model.getPrices().get(0));
+		req.setAttribute("rooms0", model.getRooms().get(0));
+		req.setAttribute("hotels1", model.getHotelNames().get(1));
+		req.setAttribute("prices1", model.getPrices().get(1));
+		req.setAttribute("rooms1", model.getRooms().get(1));
+		req.setAttribute("hotels2", model.getHotelNames().get(2));
+		req.setAttribute("prices2", model.getPrices().get(2));
+		req.setAttribute("rooms2", model.getRooms().get(2));
+		req.setAttribute("hotels3", model.getHotelNames().get(3));
+		req.setAttribute("prices3", model.getPrices().get(3));
+		req.setAttribute("rooms3", model.getRooms().get(3));
+		req.setAttribute("hotels4", model.getHotelNames().get(4));
+		req.setAttribute("prices4", model.getPrices().get(4));
+		req.setAttribute("rooms4", model.getRooms().get(4));
+		req.setAttribute("hotels5", model.getHotelNames().get(5));
+		req.setAttribute("prices5", model.getPrices().get(5));
+		req.setAttribute("rooms5", model.getRooms().get(5));
+		req.setAttribute("hotels6", model.getHotelNames().get(6));
+		req.setAttribute("prices6", model.getPrices().get(6));
+		req.setAttribute("rooms6", model.getRooms().get(6));
+		req.setAttribute("hotels7", model.getHotelNames().get(7));
+		req.setAttribute("prices7", model.getPrices().get(7));
+		req.setAttribute("rooms7", model.getRooms().get(7));
+		req.setAttribute("hotels8", model.getHotelNames().get(8));
+		req.setAttribute("prices8", model.getPrices().get(8));
+		req.setAttribute("rooms8", model.getRooms().get(8));
+		req.setAttribute("hotels9", model.getHotelNames().get(9));
+		req.setAttribute("prices9", model.getPrices().get(9));
+		req.setAttribute("rooms9", model.getRooms().get(9));
+		req.setAttribute("hotels10", model.getHotelNames().get(10));
+		req.setAttribute("prices10", model.getPrices().get(10));
+		req.setAttribute("rooms10", model.getRooms().get(10));
+		req.setAttribute("hotels11", model.getHotelNames().get(11));
+		req.setAttribute("prices11", model.getPrices().get(11));
+		req.setAttribute("rooms11", model.getRooms().get(11));
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
 		

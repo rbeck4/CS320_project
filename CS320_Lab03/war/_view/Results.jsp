@@ -63,15 +63,28 @@ input.reserveButton {
 	</ol>
 
 
-	<form class="makeReservation"
-		action="${pageContext.servletContext.contextPath}/Results"
-		method="post">
-		Make Reservation: <input type="text" name="reservation"
-			value="${reservation}" /> <input class="selectButton" type="Submit"
-			name="select" value="Confirm Selection">
-		<table>
-			<tr>
-				<td class="label">Selected: ${result}</td>
+	body>
+		<c:if test="${! empty errorMessage}">
+			<div class="error">${errorMessage}</div>
+		</c:if>
+		<h1>
+		Results
+		</h1>
+		<h2 class="titleSR">Search Results</h2>
+			<ol class="searchResults" >
+	  			<li></li>
+	   			<li>hotel room</li>
+	  			<li>hotel room</li>
+			</ol> 
+		
+			
+		<form class="makeReservation" action="${pageContext.servletContext.contextPath}/Results" method="post">
+		  	Make Reservation:
+  			<input type="text" name="reservation" value="${reservation}" />
+  			<input class="selectButton" type="Submit" name="select" value="Confirm Selection">
+  			<table>
+  			<tr>
+  			<td class="label">Selected: ${result}</td>
 			</tr>
 		</table>
 	</form>

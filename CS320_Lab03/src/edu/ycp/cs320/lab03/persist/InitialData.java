@@ -13,7 +13,7 @@ public class InitialData {
 	// reads initial Author data from CSV file and returns a List of Authors
 	public static List<Account> getAccount() throws IOException {
 		List<Account> accountList = new ArrayList<Account>();
-		ReadCSV readAccount = new ReadCSV("Account.csv");
+		ReadCSV readAccount = new ReadCSV("account.csv");
 		try {
 			// auto-generated primary key for authors table
 			Integer userId = 1;
@@ -29,7 +29,7 @@ public class InitialData {
 				acc.setName(i.next());
 				acc.setUsername(i.next());
 				acc.setPassword(i.next());
-				acc.setPayment(Integer.parseInt(i.next()));
+				acc.setPayment(Double.parseDouble(i.next()));
 				acc.setSecCode(Integer.parseInt(i.next()));
 				acc.setEmail(i.next());
 				acc.setAddress(i.next());
@@ -55,7 +55,6 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Reservation reserv = new Reservation();
-//				book.setBookId(Integer.parseInt(i.next()));
 				reserv.setReservID(reservId++);				
 				reserv.setUserID(Integer.parseInt(i.next()));
 				reserv.setSite(i.next());

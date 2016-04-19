@@ -24,7 +24,7 @@ public class DerbyDatabaseTests {
 	
 	List<Account> Account = null;
 	List<Reservation>   reservations  = null;
-	Account accountList = null;
+	List<edu.ycp.cs320.lab03.model.Account> accountList = null;
 	List<Reservation> reservationList = null;
 	String userName = "Ryan";
 	
@@ -80,7 +80,7 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing findAllAccounts ***");
 
 		// get the list of (Accounts) pairs from DB
-		Account acc = db.findUsersWithUsername(userName);
+		List<Account> acc = db.findUsersWithUsername(userName);
 
 		// NOTE: this is a simple test to check if no results were found in the DB
 		if (acc == null) {
@@ -90,9 +90,12 @@ public class DerbyDatabaseTests {
 		// NOTE: assembling the results into Author and Book lists so that they could be
 		//       inspected for correct content - well-formed objects with correct content
 		else {
-				System.out.println(acc.getUserId() + ", " + acc.getName() + ", " + acc.getUsername() + acc.getPassword() + ", "
-						+ acc.getPayment() + ", " + acc.getSecCode() + ", " + acc.getEmail() + ", " + acc.getAddress());
-			}			
+			for(int i = 0; i < acc.size(); i++){
+				Account temp = acc.get(i);
+				System.out.println(temp.getUserId() + ", " + temp.getName() + ", " + temp.getUsername() + temp.getPassword() + ", "
+						+ temp.getPayment() + ", " + temp.getSecCode() + ", " + temp.getEmail() + ", " + temp.getAddress());
+			}
+		}			
 	}
 	
 
@@ -146,7 +149,7 @@ public class DerbyDatabaseTests {
 		String username = "Enterprise";
 		String pass = "NCC1701";
 		String payment = "7890789078907890";
-		String secCode = "951";
+		int secCode = 951;
 		String email = "captkurk@USSEnterprise.ufp";
 		String address = "FollowThePrimeDirective101";
 				

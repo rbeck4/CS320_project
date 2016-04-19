@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.lab03.model.Pair;
+//import edu.ycp.cs320.lab03.model.Pair;
+import edu.ycp.cs320.lab03.persist.DBUtil;
+//import edu.ycp.cs320.lab03.persist.DerbyDatabase.Transaction;
 import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.Reservation;
 
@@ -22,7 +24,7 @@ public class DerbyDatabase implements IDatabase {
 		}
 	}
 	
-	private interface Transaction<ResultType> {
+	public interface Transaction<ResultType> {
 		public ResultType execute(Connection conn) throws SQLException;
 	}
 
@@ -38,18 +40,18 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
-				// try to retrieve Authors and Books based on Author's last name, passed into query
+				// try to retrieve Accounts and Reservations based on userName, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select reservations.*" +
-							"  from reservations " +
-							" where Account.userID = reservations.userID " +
-							"       and account.userName = ? " +
-							"   order by reservations.site asc"
+							"select reservation" +
+							" from reservations, account" +
+							" where account.userID = reservations.userID " +
+							" and account.userName = ? " +
+							" order by reservations.site asc"
 					);
 					stmt.setString(1, userName);
 					
-					// establish the list of (Author, Book) Pairs to receive the result
+					// list of reservations
 					List<Reservation> result = new ArrayList<Reservation>();
 					
 					// execute the query, get the results, and assemble them in an ArrayLsit
@@ -73,40 +75,49 @@ public class DerbyDatabase implements IDatabase {
 	
 	// transaction that retrieves all Accounts in Library
 	@Override
-	public Account findUsersWithUsername(final String userName) {
-		return executeTransaction(new Transaction<Account>() {
+	public List<Account> findUsersWithUsername(final String userName) {
+		return executeTransaction(new Transaction<List<Account>>() {
 			@Override
-			public Account execute(Connection conn) throws SQLException {
+			public List<Account> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-				
+
+				// try to retrieve Accounts and Reservations based on userName, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select Account.*" +
-							"from Account " +
-							"where account.userName = ?"
+							"select account" +
+							"  from  account " +
+							"  where account.userName = ? " +
+							"  order by account.userName asc"
 					);
 					stmt.setString(1, userName);
 					
-					// establish the list of (Author, Book) Pairs to receive the result
-					Account result = new Account();
+					// establish the list of Accounts to receive the result
+					List<Account> result = new ArrayList<Account>();
 					
 					// execute the query, get the results, and assemble them in an ArrayLsit
-					resultSet = stmt.executeQuery();					
+					resultSet = stmt.executeQuery();
+					while (resultSet.next()) {
+						Account user = new Account();
+						loadAccount(user, resultSet, 1);
+						
+						result.add(user);
+					}
+					
 					return result;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
-				}			
+			}		
 		});
 	}
 	
 	
-	// transaction that inserts new Book into the Books table
-	// also first inserts new Author into Authors table, if necessary
+	// transaction that inserts new Reservation into reservations table
+	// also first inserts new Account into Accounts table, if necessary
 	@Override
-	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String room, final String dateStart, final String dateEnd, final int cost) {
+	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String room, final String dateStart, final String dateEnd, final String cost) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
@@ -142,7 +153,7 @@ public class DerbyDatabase implements IDatabase {
 					resultSet1 = stmt1.executeQuery();
 
 					
-					// if Author was found then save author_id					
+					// if Account was found then save userID				
 					if (resultSet1.next())
 					{
 						userID = resultSet1.getInt(1);
@@ -166,7 +177,7 @@ public class DerbyDatabase implements IDatabase {
 							
 							System.out.println("New account <" + usr + "> inserted in Account table");						
 						
-							// try to retrieve usrID for new Account - DB auto-generates userID
+							// try to retrieve userID for new Account - DB auto-generates userID
 							stmt3 = conn.prepareStatement(
 									"select userID from account " +
 									"  where userName = ? "
@@ -182,9 +193,9 @@ public class DerbyDatabase implements IDatabase {
 								userID = resultSet3.getInt(1);
 								System.out.println("New account <" + usr + "> ID: " + userID);						
 							}
-							else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
+							else	// really should throw an exception here - the new  should have been inserted, but we didn't find them
 							{
-								System.out.println("New account <" + usr + "> not found in Account table (ID: " + userID);
+								System.out.println("New account <" + usr + "> not found in Account table (ID: " + userID + ")");
 							}
 						}
 					}
@@ -192,15 +203,15 @@ public class DerbyDatabase implements IDatabase {
 					// now that we have all the information, insert new Reservation into Reservation table
 					// prepare SQL insert statement to add new Reservation to Reservation table
 					stmt4 = conn.prepareStatement(
-							"insert into reservation (usr, site, dateStart, dateEnd, cost) " +
-							"  values(?, ?, ?) "
+							"insert into reservation (usr, site, room, dateStart, dateEnd, cost) " +
+							"  values(?, ?, ?, ?, ?, ?) "
 					);
 					stmt4.setInt(1, userID);
 					stmt4.setString(2, site);
 					stmt4.setString(3, room);
 					stmt4.setString(4, dateStart);
 					stmt4.setString(5, dateEnd);
-					stmt4.setString(6, Integer.toString(cost));
+					stmt4.setString(6, cost);
 					
 					// execute the update
 					stmt4.executeUpdate();
@@ -212,14 +223,14 @@ public class DerbyDatabase implements IDatabase {
 					// prepare SQL statement to retrieve book_id for new Book
 					stmt5 = conn.prepareStatement(
 							"select reservID from books " +
-							"  where userID = ? and site = ? and room = ? and dateStart = ? and dateEnd = ? and cost = ?"
+							"  where userID = ? and site = ? and room = ? and checkInDate = ? and checkOutdate = ? and cost = ?"
 					);
 					stmt5.setInt(1, userID);
 					stmt5.setString(2, site);
 					stmt5.setString(3, room);
 					stmt5.setString(4, dateStart);
 					stmt5.setString(5, dateEnd);
-					stmt5.setString(6, Integer.toString(cost));
+					stmt5.setString(6, cost);
 					
 					// execute the query
 					resultSet5 = stmt5.executeQuery();
@@ -228,11 +239,11 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet5.next())
 					{
 						reservID = resultSet5.getInt(1);
-						System.out.println("New reservation <" + site + "> ID: " + reservID);						
+						System.out.println("New reservation <" + site + "> ID: " + reservID + ")");						
 					}
 					else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
 					{
-						System.out.println("New reservation <" + site + "> not found in Books table (ID: " + reservID);
+						System.out.println("New reservation <" + site + "> not found in Books table (ID: " + reservID + ")");
 					}
 					
 					return reservID;
@@ -252,7 +263,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	// transaction that inserts new accounts into the account table
 		@Override
-		public Integer insertUserIntoAccountTable(final String name, final String userName, final String pass, 
+		public Integer insertUserIntoAccountTable(final String name, final String userName, final String password, 
 				final String payment, final String secCode, final String email, final String address) {
 			return executeTransaction(new Transaction<Integer>() {
 				@Override
@@ -312,9 +323,9 @@ public class DerbyDatabase implements IDatabase {
 								// execute the update
 								stmt2.executeUpdate();
 								
-								System.out.println("New account <" + userName + "> inserted in Authors table");						
+								System.out.println("New account <" + userName + "> inserted in s table");						
 							
-								// try to retrieve usrID for new Account - DB auto-generates userID
+								// try to retrieve userID for new Account - DB auto-generates userID
 								stmt3 = conn.prepareStatement(
 										"select userID from account " +
 										"  where userName = ? "
@@ -330,7 +341,7 @@ public class DerbyDatabase implements IDatabase {
 									userID = resultSet3.getInt(1);
 									System.out.println("New account <" + userName + "> ID: " + userID);						
 								}
-								else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
+								else	// really should throw an exception here - the new Account should have been inserted, but we didn't find them
 								{
 									System.out.println("New account <" + userName + "> not found in Account table (ID: " + userID);
 								}
@@ -340,12 +351,12 @@ public class DerbyDatabase implements IDatabase {
 						// now that we have all the information, insert new Account into Account table
 						// prepare SQL insert statement to add new Reservation to Reservation table
 						stmt4 = conn.prepareStatement(
-								"insert into Account (name, userName, pass, payment, secCode, email, address) " +
+								"insert into Account (name, userName, password, payment, secCode, email, address) " +
 								"  values(?, ?, ?) "
 						);
 						stmt4.setString(1, name);
 						stmt4.setString(2, userName);
-						stmt4.setString(3, pass);
+						stmt4.setString(3, password);
 						stmt4.setString(4, payment);
 						stmt4.setString(5, secCode);
 						stmt4.setString(6, email);
@@ -361,11 +372,11 @@ public class DerbyDatabase implements IDatabase {
 						// prepare SQL statement to retrieve AccountID for new Book
 						stmt5 = conn.prepareStatement(
 								"select reservID from Account " +
-								"  where name = ? and userName = ? and pass = ? and payment = ? and secCode = ? and email = ? and address = ?"
+								"  where name = ? and userName = ? and password = ? and payment = ? and secCode = ? and email = ? and address = ?"
 						);
 						stmt5.setString(1, name);
 						stmt5.setString(2, userName);
-						stmt5.setString(3, pass);
+						stmt5.setString(3, password);
 						stmt5.setString(4, payment);
 						stmt5.setString(5, secCode);
 						stmt5.setString(6, email);
@@ -451,7 +462,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: You will need to change this location to the same path as your workspace for this example
 	// TODO: Change it here and in SQLDemo under CS320_Lab06->edu.ycp.cs320.sqldemo	
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320/CS320_Library_Example/CS320_Lab06/library.db;create=true");		
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320/Reservation_System/CS320_Lab03/reservation.db;create=true");		
 		
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -460,7 +471,7 @@ public class DerbyDatabase implements IDatabase {
 		return conn;
 	}
 	
-	// retrieves Author information from query result set
+	// retrieves Account information from query result set
 	private void loadAccount(Account user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
 		user.setName(resultSet.getString(index++));
@@ -493,34 +504,36 @@ public class DerbyDatabase implements IDatabase {
 				
 				try {
 					stmt1 = conn.prepareStatement(
-						"create table Account (" +
-						"	usrID integer primary key " +
-						"		generated always as identity (start with 1, increment by 1), " +									
-						"	name varchar(40)," +
-						"	username varchar(40)" +
-						"	password varchar(40)" +
-						"	payment varchar(16)" +
-						"	secCode varchar(3)" +
-						"	email varchar(40)" +
-						"	address varchar(60)" +
+						"create table account (" +
+						"userid integer primary key generated by default as identity,"+
+						"name varchar(40)," +
+						"username varchar(40)," +
+						"password varchar(40)," +
+						"payment varchar(16)," +
+						"secCode varchar(3)," +
+						"email varchar(40)," +
+						"address varchar(60)" +						
 						")"
 					);	
 					stmt1.executeUpdate();
 					
+					System.out.println("Account table created");
+					
 					stmt2 = conn.prepareStatement(
 							"create table reservations (" +
-							"	reservID integer primary key " +
-							"		generated always as identity (start with 1, increment by 1), " +
-							"	userID integer constraint author_id references authors, " +
-							"	site varchar(50)," +
-							"	room varchar(20)" +
-							"	CheckInDate varchar(8)" +
-							"	CheckOutDate varchar(8)" +
-							"	cost varchar(10)" +
+							"reservationID integer primary key generated by default as identity, " +
+							"userID integer constraint userID references account," +
+							"site varchar(40)," +
+							"room varchar(3)," +
+							"checkInDate varchar(9)," +
+							"checkOutDate varchar(9)," +
+							"cost varchar(5)" +
 							")"
 					);
 					stmt2.executeUpdate();
 					
+					System.out.println("Reservations table created");					
+				
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
@@ -549,28 +562,27 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertReservation = null;
 
 				try {
-					insertAccount = conn.prepareStatement("insert into Account (name, usrName, password, payment,secCode, email, address) values (?, ?, ?, ?, ?, ?)");
+					insertAccount = conn.prepareStatement("insert into Account (name, userName, password, payment, secCode, email, address) values (?, ?, ?, ?, ?, ?, ?)");
 					for (Account acc : accountList) {
-//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertAccount.setString(1, acc.getName());
 						insertAccount.setString(2, acc.getUsername());
 						insertAccount.setString(3, acc.getPassword());
-						insertAccount.setString(4, Integer.toString(acc.getPayment()));
-						insertAccount.setString(4, Integer.toString(acc.getSecCode()));
-						insertAccount.setString(5, acc.getEmail());
-						insertAccount.setString(6, acc.getAddress());
+						insertAccount.setString(4, Double.toString(acc.getPayment()));
+						insertAccount.setString(5, Integer.toString(acc.getSecCode()));
+						insertAccount.setString(6, acc.getEmail());
+						insertAccount.setString(7, acc.getAddress());
 						insertAccount.addBatch();
 					}
 					insertAccount.executeBatch();
 					
-					insertReservation = conn.prepareStatement("insert into reservations (author_id, title, isbn) values (?, ?, ?)");
+					insertReservation = conn.prepareStatement("insert into reservations (userID, site, room, checkIndate, checkOutDate, cost) values (?, ?, ?, ?, ?, ?)");
 					for (Reservation reserv : reservList) {
-//					//	insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 						insertReservation.setInt(1, reserv.getUserID());
 						insertReservation.setString(2, reserv.getSite());
-						insertReservation.setString(3, reserv.getCheckInDate());
-						insertReservation.setString(4, reserv.getCheckOutDate());
-						insertReservation.setString(5, Integer.toString(reserv.getCost()));
+						insertReservation.setString(3, reserv.getRoom());
+						insertReservation.setString(4, reserv.getCheckInDate());
+						insertReservation.setString(5, reserv.getCheckOutDate());
+						insertReservation.setInt(6, reserv.getCost());
 						insertReservation.addBatch();
 					}
 					insertReservation.executeBatch();
