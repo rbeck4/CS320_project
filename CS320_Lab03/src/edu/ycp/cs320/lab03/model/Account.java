@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Account {
 	private int userID;
-	private double payment;
+	private String payment;
 	private int secCode;
 	private String name;
 	private String username;
@@ -17,15 +17,15 @@ public class Account {
 	public Account() {
 	}
 	
-	public void setMin(int payment) {
+	public void setMin(String payment) {
 		this.payment = payment;
 	}
 	
-	public void setPayment(double payment) {
+	public void setPayment(String payment) {
 		this.payment = payment;
 	}
 	
-	public double getPayment() {
+	public String getPayment() {
 		return payment;
 	}
 	

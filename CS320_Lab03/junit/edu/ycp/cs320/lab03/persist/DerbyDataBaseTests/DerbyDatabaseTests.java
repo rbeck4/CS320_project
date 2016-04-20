@@ -108,7 +108,7 @@ public class DerbyDatabaseTests {
 		String room = "420";
 		String dateStart = Integer.toString(10-14-16);
 		String dateEnd = Integer.toString(10-16-16);
-		int cost = 15;
+		String cost = "15";
 				
 		// insert new book (and possibly new author) into DB
 		Integer reservID = db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);;
@@ -149,7 +149,7 @@ public class DerbyDatabaseTests {
 		String username = "Enterprise";
 		String pass = "NCC1701";
 		String payment = "7890789078907890";
-		int secCode = 951;
+		String secCode = "951";
 		String email = "captkurk@USSEnterprise.ufp";
 		String address = "FollowThePrimeDirective101";
 				
@@ -163,8 +163,8 @@ public class DerbyDatabaseTests {
 			// get the list of (Author, Book) pairs from DB
 			accountList = db.findUsersWithUsername(username);
 			
-			if (reservationList.isEmpty()) {
-				System.out.println("No reservations found for user <" + username + ">");
+			if (accountList.isEmpty()) {
+				System.out.println("No account found for user <" + username + ">");
 				fail("Failed to insert new account <" + name + "> into DB");
 			}
 			// otherwise, the test was successful.  Now remove the account just inserted to return the DB

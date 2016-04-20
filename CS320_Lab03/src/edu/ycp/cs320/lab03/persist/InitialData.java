@@ -29,7 +29,7 @@ public class InitialData {
 				acc.setName(i.next());
 				acc.setUsername(i.next());
 				acc.setPassword(i.next());
-				acc.setPayment(Double.parseDouble(i.next()));
+				acc.setPayment(i.next());
 				acc.setSecCode(Integer.parseInt(i.next()));
 				acc.setEmail(i.next());
 				acc.setAddress(i.next());

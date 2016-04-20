@@ -477,7 +477,7 @@ public class DerbyDatabase implements IDatabase {
 		user.setName(resultSet.getString(index++));
 		user.setUsername(resultSet.getString(index++));
 		user.setPassword(resultSet.getString(index++));
-		user.setPayment(Integer.parseInt(resultSet.getString(index++)));
+		user.setPayment(resultSet.getString(index++));
 		user.setSecCode(Integer.parseInt(resultSet.getString(index++)));
 		user.setEmail(resultSet.getString(index++));
 		user.setAddress(resultSet.getString(index++));
@@ -567,7 +567,7 @@ public class DerbyDatabase implements IDatabase {
 						insertAccount.setString(1, acc.getName());
 						insertAccount.setString(2, acc.getUsername());
 						insertAccount.setString(3, acc.getPassword());
-						insertAccount.setString(4, Double.toString(acc.getPayment()));
+						insertAccount.setString(4, acc.getPayment());
 						insertAccount.setString(5, Integer.toString(acc.getSecCode()));
 						insertAccount.setString(6, acc.getEmail());
 						insertAccount.setString(7, acc.getAddress());
