@@ -43,7 +43,7 @@ public class DerbyDatabase implements IDatabase {
 				// try to retrieve Accounts and Reservations based on userName, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select reservation" +
+							"select reservations.*" +
 							" from reservations, account" +
 							" where account.userID = reservations.userID " +
 							" and account.userName = ? " +
@@ -85,7 +85,7 @@ public class DerbyDatabase implements IDatabase {
 				// try to retrieve Accounts and Reservations based on userName, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select account" +
+							"select account.*" +
 							"  from  account " +
 							"  where account.userName = ? " +
 							"  order by account.userName asc"
@@ -273,18 +273,18 @@ public class DerbyDatabase implements IDatabase {
 					PreparedStatement stmt3 = null;
 					PreparedStatement stmt4 = null;
 					PreparedStatement stmt5 = null;
-					PreparedStatement stmt6 = null;
-					PreparedStatement stmt7 = null;
-					PreparedStatement stmt8 = null;
+//					PreparedStatement stmt6 = null;
+//					PreparedStatement stmt7 = null;
+//					PreparedStatement stmt8 = null;
 					
 					ResultSet resultSet1 = null;
-//		(unused)	ResultSet resultSet2 = null;
+//					ResultSet resultSet2 = null;
 					ResultSet resultSet3 = null;
-//		(unused)	ResultSet resultSet4 = null;
+//					ResultSet resultSet4 = null;
 					ResultSet resultSet5 = null;
-					ResultSet resultSet6 = null;
-					ResultSet resultSet7 = null;
-					ResultSet resultSet8 = null;
+//					ResultSet resultSet6 = null;
+//					ResultSet resultSet7 = null;
+//					ResultSet resultSet8 = null;
 					
 					// for saving user ID
 					Integer userID = -1;
@@ -352,7 +352,7 @@ public class DerbyDatabase implements IDatabase {
 						// prepare SQL insert statement to add new Reservation to Reservation table
 						stmt4 = conn.prepareStatement(
 								"insert into Account (name, userName, password, payment, secCode, email, address) " +
-								"  values(?, ?, ?) "
+								"  values(?, ?, ?, ?, ?, ?, ?) "
 						);
 						stmt4.setString(1, name);
 						stmt4.setString(2, userName);
@@ -371,7 +371,7 @@ public class DerbyDatabase implements IDatabase {
 						// DB auto-generates AccountID
 						// prepare SQL statement to retrieve AccountID for new Book
 						stmt5 = conn.prepareStatement(
-								"select reservID from Account " +
+								"select accountID from Account " +
 								"  where name = ? and userName = ? and password = ? and payment = ? and secCode = ? and email = ? and address = ?"
 						);
 						stmt5.setString(1, name);
@@ -393,7 +393,7 @@ public class DerbyDatabase implements IDatabase {
 						}
 						else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
 						{
-							System.out.println("New account <" + userName + "> not found in Books table (ID: " + userID);
+							System.out.println("New account <" + userName + "> not found in Account table (ID: " + userID);
 						}
 						
 						return userID;
