@@ -39,9 +39,14 @@ ol.currentReservations {
 		<input type="submit" name="checkRA" value="Check Room Availability">
 	</form>
 	<h2 class="titleCR">Current Reservations</h2>
-	<ol class="currentReservations">
-		<li>Hotel | Starting Date| Ending Date</li>
-	</ol>
+	<form action="${pageContext.servletContext.contextPath}/Account" method="post">
+		<ol class="currentReservations">
+			<li>${reservation0}</li>
+			<li>${reservation1}</li>
+		</ol>
+
+	 	<input class="selectButton" type="Submit" name="select" value="Display Reservations">
+	</form>
 	<form action="../HotelReservationSystem/cancelReservation">
 		<input type="submit" name="cancel" value="Cancel Reservation">
 	</form>

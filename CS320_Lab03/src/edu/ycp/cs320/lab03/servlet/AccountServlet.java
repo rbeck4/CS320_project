@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.lab03.controller.AccountController;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
 import edu.ycp.cs320.lab03.model.Account;
+import edu.ycp.cs320.lab03.model.Reservation;
 import edu.ycp.cs320.lab03.model.SearchRequest;
 
 public class AccountServlet extends HttpServlet {
@@ -34,10 +35,19 @@ public class AccountServlet extends HttpServlet {
 				
 		String errorMessage = null;
 		Double result = null;
-		ArrayList<String> reservation = new ArrayList<String>();
+		ArrayList<Reservation> reservations = model.getReservation();
 		//reservation.add("reservation 102");
 		//reservation.add("reservation 202");
 		//reservation.add("reservation 303");
+		String user = model.getUsername();
+		
+		if (user == "adam"){
+			//set reservavtions to display = adam reservations
+			//req.setAttribute("reservation0", reservations.get(0)); //first reservation
+		}else if(user == "ryan"){
+			//set reservavtions to display = adam reservations
+			//req.setAttribute("reservation0", reservations.get(0)); //first reservation
+		}
 		
 		try {
 				errorMessage = "Please specify two numbers";
@@ -50,10 +60,14 @@ public class AccountServlet extends HttpServlet {
 		req.setAttribute("first", req.getParameter("first"));
 		req.setAttribute("second", req.getParameter("second"));
 		
+		String hotelName = "hhotel1";
+		String hotelName2 = "hhotel2";
+		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
-		req.setAttribute("reservation", reservation);
+		req.setAttribute("reservation0", hotelName);
+		req.setAttribute("reservation1", hotelName2);
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Account.jsp").forward(req, resp);
