@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Account {
 	private int userID;
 	private String payment;
-	private int secCode;
+	private String secCode;
 	private String name;
 	private String username;
 	private String password;
@@ -45,11 +45,11 @@ public class Account {
 		return username;
 	}
 	
-	public void setSecCode(int secCode){
+	public void setSecCode(String secCode){
 		this.secCode = secCode;
 	}
 	
-	public int getSecCode(){
+	public String getSecCode(){
 		return secCode;
 	}
 	public boolean validTest() {
