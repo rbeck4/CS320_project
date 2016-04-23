@@ -30,7 +30,7 @@ public class InitialData {
 				acc.setUsername(i.next());
 				acc.setPassword(i.next());
 				acc.setPayment(i.next());
-				acc.setSecCode(Integer.parseInt(i.next()));
+				acc.setSecCode(i.next());
 				acc.setEmail(i.next());
 				acc.setAddress(i.next());
 				accountList.add(acc);

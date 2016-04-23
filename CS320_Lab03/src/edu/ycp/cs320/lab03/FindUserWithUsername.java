@@ -8,7 +8,7 @@ import edu.ycp.cs320.lab03.persist.DatabaseProvider;
 import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class FindUserWithUsername {
-	public static void main(String userName) throws Exception {
+	public static List<Account> main(String userName) throws Exception {
 		Scanner keyboard = new Scanner(System.in);
 
 		// Create the default IDatabase instance
@@ -21,10 +21,12 @@ public class FindUserWithUsername {
 		// check if anything was returned and output the list
 		if (userList == null) {
 			System.out.println("There are no users in the database");
+			return null;
 		}
 		else {
 			Account usr = userList.get(0);
-			System.out.println(usr.getUsername());			
+			System.out.println(usr.getUsername());		
+			return userList;
 		}
 	}
 }

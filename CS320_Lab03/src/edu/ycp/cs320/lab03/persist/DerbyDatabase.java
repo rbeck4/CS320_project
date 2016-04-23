@@ -323,7 +323,7 @@ public class DerbyDatabase implements IDatabase {
 								// execute the update
 								stmt2.executeUpdate();
 								
-								System.out.println("New account <" + userName + "> inserted in s table");						
+								System.out.println("New account <" + name + "> inserted in account table");						
 							
 								// try to retrieve userID for new Account - DB auto-generates userID
 								stmt3 = conn.prepareStatement(
@@ -339,11 +339,11 @@ public class DerbyDatabase implements IDatabase {
 								if (resultSet3.next())
 								{
 									userID = resultSet3.getInt(1);
-									System.out.println("New account <" + userName + "> ID: " + userID);						
+									System.out.println("New account <" + name + "> ID: " + userID);						
 								}
 								else	// really should throw an exception here - the new Account should have been inserted, but we didn't find them
 								{
-									System.out.println("New account <" + userName + "> not found in Account table (ID: " + userID);
+									System.out.println("New account <" + name + "> not found in Account table (ID: " + userID);
 								}
 							}
 						}
@@ -371,7 +371,7 @@ public class DerbyDatabase implements IDatabase {
 						// DB auto-generates AccountID
 						// prepare SQL statement to retrieve AccountID for new Book
 						stmt5 = conn.prepareStatement(
-								"select accountID from Account " +
+								"select userID from Account " +
 								"  where name = ? and userName = ? and password = ? and payment = ? and secCode = ? and email = ? and address = ?"
 						);
 						stmt5.setString(1, name);
@@ -478,7 +478,7 @@ public class DerbyDatabase implements IDatabase {
 		user.setUsername(resultSet.getString(index++));
 		user.setPassword(resultSet.getString(index++));
 		user.setPayment(resultSet.getString(index++));
-		user.setSecCode(Integer.parseInt(resultSet.getString(index++)));
+		user.setSecCode(resultSet.getString(index++));
 		user.setEmail(resultSet.getString(index++));
 		user.setAddress(resultSet.getString(index++));
 	}
@@ -568,7 +568,7 @@ public class DerbyDatabase implements IDatabase {
 						insertAccount.setString(2, acc.getUsername());
 						insertAccount.setString(3, acc.getPassword());
 						insertAccount.setString(4, acc.getPayment());
-						insertAccount.setString(5, Integer.toString(acc.getSecCode()));
+						insertAccount.setString(5, acc.getSecCode());
 						insertAccount.setString(6, acc.getEmail());
 						insertAccount.setString(7, acc.getAddress());
 						insertAccount.addBatch();

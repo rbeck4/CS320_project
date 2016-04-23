@@ -75,7 +75,7 @@ public class FakeDatabase implements IDatabase {
 		newAcc.setUsername(username);
 		newAcc.setPassword(pass);
 		newAcc.setPayment(payment);
-		newAcc.setSecCode(Integer.parseInt(secCode));
+		newAcc.setSecCode(secCode);
 		newAcc.setEmail(email);
 		newAcc.setAddress(address);
 		accountList.add(newAcc);

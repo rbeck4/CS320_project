@@ -9,7 +9,7 @@ import edu.ycp.cs320.lab03.persist.DatabaseProvider;
 import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class FindAllReservationsWithUser {
-	public static void main(String userName) throws Exception {
+	public static List<Reservation> main(String userName) throws Exception {
 		Scanner keyboard = new Scanner(System.in);
 
 		// Create the default IDatabase instance
@@ -22,12 +22,14 @@ public class FindAllReservationsWithUser {
 		// check if anything was returned and output the list
 		if (reservList.isEmpty()) {
 			System.out.println("There are no valid reservations.");
+			return null;
 		}
 		else {
 			for (int i = 0; i < reservList.size(); i++) {
 				Reservation reserv = reservList.get(i);
 				System.out.println(reserv.getSite() + ", " + reserv.getCheckInDate() + ", " + reserv.getCheckOutDate() + ", " + reserv.getCost());
 			}
+			return reservList;
 		}
 	}
 }

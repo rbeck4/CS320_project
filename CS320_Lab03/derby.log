@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Wed Apr 20 09:49:43 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0154-33ef-05ce-00000623a1c8 
-on database directory C:\CS320\Reservation_System\CS320_Lab03\reservation.db with class loader sun.misc.Launcher$AppClassLoader@452b3a41 
+Sat Apr 23 11:13:36 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0154-43ae-e6da-0000062e1b00 
+on database directory C:\CS320\Reservation_System\CS320_Lab03\reservation.db with class loader sun.misc.Launcher$AppClassLoader@4a574795 
 Loaded from file:/C:/Users/Ryan/workspace/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_71-b15
+java.runtime.version=1.8.0_91-b14
 user.dir=C:\Users\Ryan\git\CS320_project\CS320_Lab03
 os.name=Windows 7
 os.arch=amd64
