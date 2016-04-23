@@ -1,6 +1,11 @@
 package edu.ycp.cs320.lab03;
 
 
+import java.util.List;
+
+import edu.ycp.cs320.lab03.model.Account;
+
+
 //import java.util.Scanner;
 
 import edu.ycp.cs320.lab03.persist.DatabaseProvider;
@@ -37,7 +42,7 @@ public class InsertUserIntoAccountTable {
 		}
 		else
 		{
-			System.out.println("New user " + username + " account NOT created, please try again.");			
+			System.out.println("New user " + username + " account NOT created, please try again.");
 		}
 	}
 }

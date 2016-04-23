@@ -6,6 +6,7 @@ import edu.ycp.cs320.lab03.model.Account;
 import java.util.List;
 
 import edu.ycp.cs320.lab03.FindUserWithUsername;
+import edu.ycp.cs320.lab03.InsertUserIntoAccountTable;
 import edu.ycp.cs320.lab03.model.SearchRequest;
 
 
@@ -32,8 +33,9 @@ public class LogInController{
 		}
 	}
 
-	public void setModel(SearchRequest model) {
-		// TODO Auto-generated method stub
-		
+	public Account createUser(String name, String userName, String pass, String payment,
+			String secCode, String email, String addr) throws Exception{
+		acctList = FindUserWithUsername.main(userName);
+		return acctList.get(0);
 	}
 }
