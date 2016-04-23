@@ -37,15 +37,17 @@ public class SearchRequestServlet extends HttpServlet {
 			int roomType = Integer.parseInt(req.getParameter("roomType"));
 			
 			String CheckInDay = req.getParameter("CheckInDay");
-			String CheckInMonth = req.getParameter("CheckInMonth");;
-			String CheckOutDay = req.getParameter("CheckOutDay");;
-			String CheckOutMonth = req.getParameter("CheckOutMonth");;
+			String CheckInMonth = req.getParameter("CheckInMonth");
+			String CheckOutDay = req.getParameter("CheckOutDay");
+			String CheckOutMonth = req.getParameter("CheckOutMonth");
+			String City = req.getParameter("City");
 			
 			model.setCheckInDay(CheckInDay);
 			model.setCheckInMonth(CheckInMonth);
 			model.setCheckOutDay(CheckOutDay);
 			model.setCheckOutMonth(CheckOutMonth);
 			model.setRoomType(roomType);
+			model.setCity(City);
 			
 			if (CheckOutDay == null || CheckInDay == null) {
 				errorMessage = "Please enter dates";
@@ -55,7 +57,7 @@ public class SearchRequestServlet extends HttpServlet {
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDay);
 				System.out.println(roomType);
-				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth);
+				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth, City);
 				//System.out.println(model.getHotelNames().get(1));
 				//resp.sendRedirect("/HotelReservationSystem/Results");
 			}	
@@ -69,6 +71,7 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("CheckInMonth", req.getParameter("CheckInMonth"));
 		req.setAttribute("CheckOutMonth", req.getParameter("CheckOutMonth"));
 		req.setAttribute("roomType", req.getParameter("roomType"));
+		req.setAttribute("City", req.getParameter("City"));
 		
 	
 		// Add result objects as request attributes

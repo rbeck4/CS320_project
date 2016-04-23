@@ -11,7 +11,7 @@ public class SearchRequest {
 	private String CheckOutDay;
 	private String CheckInMonth;
 	private String CheckOutMonth;
-	private String site;
+	private String city;
 	private String hotelPreference;
 	public ArrayList<String> HotelNames;
 	private ArrayList<String> Rooms;
@@ -49,11 +49,11 @@ public class SearchRequest {
 	public String getCheckOutDay() {
 		return CheckOutDay;
 	}	
-	public void setSite(String site) {
-		this.site = site;
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getSite() {
-		return site;
+	public String getCity() {
+		return city;
 	}
 	public void setHotelPreference(String hotelPreference) {
 		this.hotelPreference = hotelPreference;
