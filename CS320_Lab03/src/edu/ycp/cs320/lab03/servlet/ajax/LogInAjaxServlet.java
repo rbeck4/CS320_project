@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.lab03.controller.LogInController;
+import edu.ycp.cs320.lab03.model.Account;
 
 public class LogInAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +38,7 @@ public class LogInAjaxServlet extends HttpServlet {
 		
 		// Use a controller to process the request
 		LogInController controller = new LogInController();
-		String result = controller.logIn(usr, pass);
+		Account result = controller.logIn(usr, pass);
 		
 		// Send back a response
 		resp.setContentType("text/plain");
