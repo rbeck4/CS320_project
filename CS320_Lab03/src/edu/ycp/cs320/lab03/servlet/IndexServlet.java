@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 
+import edu.ycp.cs320.lab03.controller.AccountController;
 import edu.ycp.cs320.lab03.controller.LogInController;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
+import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.SearchRequest;
 
 public class IndexServlet extends HttpServlet {
@@ -31,19 +33,28 @@ public class IndexServlet extends HttpServlet {
 		
 		// Decode form parameters and dispatch to controller
 		// Decode form parameters and dispatch to controller
-		SearchRequest model = new SearchRequest();
+		Account model = new Account();
 				
-		LogInController controller = new LogInController();
-		//controller.setModel(model);
+		AccountController controller = new AccountController();
+		controller.setModel(model);
 		
 		String errorMessage = null;
 		Double result = null;
 		try {
 			String username=req.getParameter("username"); 
-			String password=req.getParameter("password"); 
-			if((username.equals("admin") && password.equals("12345"))) { 
+			String password=req.getParameter("password");
+			
+			//Account act = controller.logIn(username, password);
+			if((username.equals("adam") && password.equals("pass"))) { 
+			//if(act !=null) { 
 				//session.setAttribute("username",username); 
+				model.setUsername(username);
 				resp.sendRedirect("/HotelReservationSystem/Account"); 
+			} else if((username.equals("ryan") && password.equals("password"))) { 
+					//if(act !=null) { 
+						//session.setAttribute("username",username); 
+				model.setUsername(username);
+				resp.sendRedirect("/HotelReservationSystem/Account");
 			} else {
 				//resp.sendRedirect("/HotelReservationSystem/index");
 				errorMessage = "Invalid Username and/or Password";
