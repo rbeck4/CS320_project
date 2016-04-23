@@ -90,7 +90,7 @@
   				<td class="RoomSelection"><input type="number" name="roomType" value="${roomType}" /></td>
   				</tr><tr>
   				<td class="City">City:</td>
-  				<td class="City"><input type="text" name="roomType" value="Baltimore" /></td>
+  				<td class="City"><input type="text" name="City" value="${City}" /></td>
   				</tr>
   			</table>
   			<input class="selectButton" type="Submit" name="select" value="Search">

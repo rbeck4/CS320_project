@@ -21,16 +21,20 @@ public class SearchRequestController {
 		this.model = model;
 	}
 
-	public void webScraper(String checkInD, String checkInM, String checkOutD, String checkOutM) {
+	public void webScraper(String checkInD, String checkInM, String checkOutD, String checkOutM, String city) {
 		// TODO Auto-generated method stub
-		Document doc;
+		Document doc = null;
 		try {
-			
-					
+			//doc =null;
+			//String city = "Baltimore";		
 			//connect to booking.com baltimore hotels website, for inputed dates of stay
-			doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c19wYYgBAZgBMbgBDMgBFNgBAegBAfgBAqgCAw&sid=b4edbd7d14aed5a6caeba9bc14555746&dcid=4&checkin_monthday="+checkInD+"&checkin_year_month=2016-"+checkInM+"&checkout_monthday="+checkOutD+"&checkout_year_month=2016-"+checkOutM+"&class_interval=1&dest_id=20053799&dest_type=city&group_adults=2&group_children=0&label_click=undef&no_rooms=1&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=Baltimore%2C%20Maryland%2C%20USA&ss_raw=baltimore&ssb=empty&order=score_w&tfl_cwh=1").get();
+			//if (city == "Baltimore"){
+				doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c19wYYgBAZgBMbgBDMgBFNgBAegBAfgBAqgCAw&sid=b4edbd7d14aed5a6caeba9bc14555746&dcid=4&checkin_monthday="+checkInD+"&checkin_year_month=2016-"+checkInM+"&checkout_monthday="+checkOutD+"&checkout_year_month=2016-"+checkOutM+"&class_interval=1&dest_id=20053799&dest_type=city&group_adults=2&group_children=0&label_click=undef&no_rooms=1&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=Baltimore%2C%20Maryland%2C%20USA&ss_raw=baltimore&ssb=empty&order=score_w&tfl_cwh=1").get();
 			//doc = Jsoup.connect("https://www.expedia.com/Hotel-Search?#destination=Baltimore+(and+vicinity),+Maryland,+United+States+of+America&startDate="+checkIn+"&endDate="+checkOut+"&adults=2&regionId=178235&sort=guestRating").get();
-
+			//}
+			//if (city == "Harrisburg"){
+			//	doc = Jsoup.connect("http://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggJCAlhYSDNiBW5vcmVmcgV1c19wYYgBAZgBMbgBDMgBFNgBAegBAfgBAqgCAw&sid=6add7dba32178a3738a8ae3c613945ff&dcid=1&checkin_monthday="+checkInD+"&checkin_year_month=2016-"+checkInM+"&checkout_monthday="+checkOutD+"&checkout_year_month=2016-"+checkOutM+"&class_interval=1&dest_id=20108940&dest_type=city&group_adults=2&group_children=0&hlrd=0&label_click=undef&no_rooms=1&review_score_group=empty&room1=A%2CA&sb_price_type=total&score_min=0&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=Harrisburg%2C%20Pennsylvania%2C%20USA&ss_raw=harrisbur&ssb=empty&order=score_w&tfl_cwh=1").get();
+			//}
 			String title = doc.title();
 			System.out.println("Title: " + title);
 			
