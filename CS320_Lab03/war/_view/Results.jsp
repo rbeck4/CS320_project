@@ -51,19 +51,6 @@ input.reserveButton {
 </head>
 
 <body>
-	<c:if test="${! empty errorMessage}">
-		<div class="error">${errorMessage}</div>
-	</c:if>
-	<h1>Results</h1>
-	<h2 class="titleSR">Search Results</h2>
-	<ol class="searchResults">
-		<li>hotel room</li>
-		<li>hotel room</li>
-		<li>hotel room</li>
-	</ol>
-
-
-	body>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
