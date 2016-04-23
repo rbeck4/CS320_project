@@ -1,10 +1,13 @@
 package edu.ycp.cs320.lab03.controller;
 
+
 import edu.ycp.cs320.lab03.model.Account;
 
 import java.util.List;
 
 import edu.ycp.cs320.lab03.FindUserWithUsername;
+import edu.ycp.cs320.lab03.model.SearchRequest;
+
 
 public class LogInController{
 	private List<Account> acctList;
@@ -27,5 +30,10 @@ public class LogInController{
 		else{
 			return null;
 		}
+	}
+
+	public void setModel(SearchRequest model) {
+		// TODO Auto-generated method stub
+		
 	}
 }
