@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 
+import edu.ycp.cs320.lab03.controller.LogInController;
+import edu.ycp.cs320.lab03.controller.SearchRequestController;
+import edu.ycp.cs320.lab03.model.SearchRequest;
+
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,6 +30,12 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		// Decode form parameters and dispatch to controller
+		// Decode form parameters and dispatch to controller
+		SearchRequest model = new SearchRequest();
+				
+		LogInController controller = new LogInController();
+		//controller.setModel(model);
+		
 		String errorMessage = null;
 		Double result = null;
 		try {
