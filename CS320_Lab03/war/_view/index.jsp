@@ -4,6 +4,8 @@
 
 <html>
 <head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css'>
 <title>Login</title>
 <style type="text/css">
 .error {
@@ -36,6 +38,30 @@ input.createAccountButton {
 	margin-left: 250px;
 	font-size: 120%
 }
+	h1.title {
+		padding-top: 10px;
+		text-align: Left;
+		color: black;
+		font-family: 'Open Sans', sans-serif;
+	}
+		h2.loginT {
+			padding-top: 10px;
+			text-align: Left;
+			color: black;
+			font-family: 'Open Sans', sans-serif;
+		}
+		td.user {
+			padding-top: 10px;
+			text-align: Left;
+			color: black;
+			font-family: 'Open Sans', sans-serif;
+		}
+		td.pass {
+			padding-top: 10px;
+			text-align: Left;
+			color: black;
+			font-family: 'Open Sans', sans-serif;
+		}
 </style>
 </head>
 
@@ -43,19 +69,18 @@ input.createAccountButton {
 	<c:if test="${! empty errorMessage}">
 		<div class="error">${errorMessage}</div>
 	</c:if>
-	<h1>Hotel Reservation System</h1>
-	<h2>Login</h2>
+	<h1 class ="title">Hotel Reservation System</h1>
+	<h2 class = "loginT">Login</h2>
 
-	<form class="login"
-		action="${pageContext.servletContext.contextPath}/index" method="post">
+	<form class="login" action="${pageContext.servletContext.contextPath}/index" method="post">
 		<br />
 		<table>
 			<tr>
-				<td>Username:</td>
+				<td class="user">Username:</td>
 				<td><input type="text" name="username"></td>
 			</tr>
 			<tr>
-				<td>Password:</td>
+				<td class="pass">Password:</td>
 				<td><input type="password" name="password"></td>
 			</tr>
 		</table>
