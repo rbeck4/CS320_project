@@ -30,12 +30,15 @@ public class SearchRequestServlet extends HttpServlet {
 		controller.setModel(model);
 		
 		String errorMessage = null;
-		Double result = null;
+		int result = 0;
+		
 		try {
 			//String CheckInDate = req.getParameter("CheckInDate");
 			//String CheckOutDate = req.getParameter("CheckOutDate");
-			int roomType = Integer.parseInt(req.getParameter("roomType"));
+			//int roomType = Integer.parseInt(req.getParameter("roomType"));
 			
+			//int reservation = Integer.parseInt(req.getParameter("reservation"));
+						
 			String CheckInDay = req.getParameter("CheckInDay");
 			String CheckInMonth = req.getParameter("CheckInMonth");
 			String CheckOutDay = req.getParameter("CheckOutDay");
@@ -58,6 +61,8 @@ public class SearchRequestServlet extends HttpServlet {
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDay);
 				System.out.println(City2);
+				//result = reservation;
+				System.out.println(result);
 				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth, City);
 				//System.out.println(model.getHotelNames().get(1));
 				//resp.sendRedirect("/HotelReservationSystem/Results");
@@ -71,8 +76,9 @@ public class SearchRequestServlet extends HttpServlet {
 		req.setAttribute("CheckOutDay", req.getParameter("CheckOutDay"));
 		req.setAttribute("CheckInMonth", req.getParameter("CheckInMonth"));
 		req.setAttribute("CheckOutMonth", req.getParameter("CheckOutMonth"));
-		req.setAttribute("roomType", req.getParameter("roomType"));
+		//req.setAttribute("roomType", req.getParameter("roomType"));
 		req.setAttribute("City", req.getParameter("City"));
+		//req.setAttribute("reservation", req.getParameter("reservation"));
 		
 	
 		// Add result objects as request attributes
