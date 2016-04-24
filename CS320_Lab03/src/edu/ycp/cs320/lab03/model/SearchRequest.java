@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 
 public class SearchRequest {
 	private int numberResults;
-	private int roomType;
+	private String State;
 	private String CheckInDay;
 	private String CheckOutDay;
 	private String CheckInMonth;
@@ -27,12 +27,12 @@ public class SearchRequest {
 	public int getNumberResults() {
 		return numberResults;
 	}
-	public void setRoomType(int roomType) {
-		this.roomType = roomType;
+	public void setState(String state) {
+		this.State = state;
 	}
 	
-	public int getRoomType() {
-		return roomType;
+	public String getState() {
+		return State;
 	}
 
 	public void setCheckInDay(String CheckInDay) {
@@ -100,4 +100,5 @@ public class SearchRequest {
 	public ArrayList<String> getRooms(){
 		return Rooms;
 	}
+
 }

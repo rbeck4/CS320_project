@@ -46,7 +46,7 @@ public class SearchRequestServlet extends HttpServlet {
 			model.setCheckInMonth(CheckInMonth);
 			model.setCheckOutDay(CheckOutDay);
 			model.setCheckOutMonth(CheckOutMonth);
-			model.setRoomType(roomType);
+			//model.setRoomType(roomType);
 			model.setCity(City);
 			
 			if (CheckOutDay == null || CheckInDay == null) {
@@ -54,9 +54,10 @@ public class SearchRequestServlet extends HttpServlet {
 			} else {
 				
 				String CheckInDate2 = model.getCheckInDay();
+				String City2 = model.getCity();
 				System.out.println(CheckInDate2);
 				System.out.println(CheckOutDay);
-				System.out.println(roomType);
+				System.out.println(City2);
 				controller.webScraper(CheckInDay, CheckInMonth, CheckOutDay, CheckOutMonth, City);
 				//System.out.println(model.getHotelNames().get(1));
 				//resp.sendRedirect("/HotelReservationSystem/Results");
