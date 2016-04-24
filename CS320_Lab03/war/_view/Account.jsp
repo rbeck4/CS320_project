@@ -30,6 +30,10 @@ ol.currentReservations {
 	color: black;
 	text-align: left;
 }
+form.reservations{
+	
+	padding-bottom: 10px;
+}
 </style>
 </head>
 
@@ -39,7 +43,7 @@ ol.currentReservations {
 		<input type="submit" name="checkRA" value="Check Room Availability">
 	</form>
 	<h2 class="titleCR">Current Reservations</h2>
-	<form action="${pageContext.servletContext.contextPath}/Account" method="post">
+	<form class="reservations" action="${pageContext.servletContext.contextPath}/Account" method="post">
 		<ol class="currentReservations">
 			<li>${reservation0}</li>
 			<li>${reservation1}</li>
