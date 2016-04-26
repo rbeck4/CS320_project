@@ -8,7 +8,7 @@ import edu.ycp.cs320.lab03.persist.DerbyDatabase;
 
 public class InitDatabase {
 	public static void init(Scanner keyboard) {
-		System.out.print("Which database (0=fake, 1=derby): ");
+		//System.out.print("Which database (0=fake, 1=derby): ");
 		//int which = Integer.parseInt(keyboard.nextLine());
 		int which = 1;
 		if (which == 0) {
