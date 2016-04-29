@@ -19,7 +19,7 @@ public class SearchRequestModelTest {
 		
 		model.setCheckInDay("2016-06-12");
 		model.setCheckOutDay("2016-06-16");
-		model.setRoomType(2);
+		
 		
 		controller.setModel(model);
 	}
@@ -36,9 +36,5 @@ public class SearchRequestModelTest {
 		assertTrue(model.getCheckOutDay()== currentCheckOutDate);
 	}
 	
-	@Test
-	public void testRoomTypeInput() {
-		int currentRoomType = 2;
-		assertTrue(model.getRoomType()== currentRoomType);
-	}
+	
 }

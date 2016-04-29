@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 
+import edu.ycp.cs320.lab03.controller.AccountController;
 import edu.ycp.cs320.lab03.controller.LogInController;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
+import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.SearchRequest;
 
 public class IndexServlet extends HttpServlet {
@@ -31,20 +33,22 @@ public class IndexServlet extends HttpServlet {
 		
 		// Decode form parameters and dispatch to controller
 		// Decode form parameters and dispatch to controller
-		SearchRequest model = new SearchRequest();
+		Account model = new Account();
 				
-		LogInController controller = new LogInController();
-		//controller.setModel(model);
+		AccountController controller = new AccountController();
 		
 		String errorMessage = null;
 		Double result = null;
 		try {
 			String username=req.getParameter("username"); 
-			String password=req.getParameter("password"); 
-			if((username.equals("admin") && password.equals("12345"))) { 
-				//session.setAttribute("username",username); 
+			String password=req.getParameter("password");
+			controller.setModel(model, username);
+			//Account act = controller.logIn(username, password);
+			if(model.getPassword().equals(password)) { 
+			//if(act !=null) { 
+				//session.setAttribute("username",username);
 				resp.sendRedirect("/HotelReservationSystem/Account"); 
-			} else {
+			}else {
 				//resp.sendRedirect("/HotelReservationSystem/index");
 				errorMessage = "Invalid Username and/or Password";
 			}

@@ -1,5 +1,6 @@
 package edu.ycp.cs320.lab03.servlet;
 
+import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.cs320.lab03.controller.AccountController;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
 import edu.ycp.cs320.lab03.model.Account;
+import edu.ycp.cs320.lab03.model.Reservation;
 import edu.ycp.cs320.lab03.model.SearchRequest;
+import edu.ycp.cs320.lab03.FindAllReservationsWithUser;
 
 public class AccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String user;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -28,19 +32,16 @@ public class AccountServlet extends HttpServlet {
 		
 		// Decode form parameters and dispatch to controller
 		Account model = new Account();
-		
+		user = req.getParameter("Username");
 		AccountController controller = new AccountController();
-		controller.setModel(model);
-				
+		model = controller.setModel(model, user);
 		String errorMessage = null;
 		Double result = null;
-		ArrayList<String> reservation = new ArrayList<String>();
-		//reservation.add("reservation 102");
-		//reservation.add("reservation 202");
-		//reservation.add("reservation 303");
+		ArrayList<Reservation> reservations = model.getReservation();
+		
 		
 		try {
-				errorMessage = "Please specify two numbers";
+				errorMessage = "No Reservations";
 			
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
@@ -50,10 +51,15 @@ public class AccountServlet extends HttpServlet {
 		req.setAttribute("first", req.getParameter("first"));
 		req.setAttribute("second", req.getParameter("second"));
 		
+		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
-		req.setAttribute("reservation", reservation);
+		//Set a series of strings as the current reservations
+		for(int i = 0; i < reservations.size(); i++){
+			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
+		}
+		req.setAttribute("NumReserv", reservations.size());		
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Account.jsp").forward(req, resp);

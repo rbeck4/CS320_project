@@ -11,6 +11,7 @@ import edu.ycp.cs320.lab03.InsertUserIntoAccountTable;
 
 public class LogInController{
 	private List<Account> acctList;
+	private Account model;
 	
 	public Account logIn(String usr, String pass){
 		try {
@@ -22,7 +23,8 @@ public class LogInController{
 		if(acctList != null){
 			if(acctList.get(0).getPassword().equals(pass)){
 				Account account = acctList.get(0);
-				return account;
+				model = account;
+				return model;
 								
 			}
 			else {
