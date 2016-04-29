@@ -36,26 +36,19 @@ public class IndexServlet extends HttpServlet {
 		Account model = new Account();
 				
 		AccountController controller = new AccountController();
-		controller.setModel(model);
 		
 		String errorMessage = null;
 		Double result = null;
 		try {
 			String username=req.getParameter("username"); 
 			String password=req.getParameter("password");
-			
+			controller.setModel(model, username);
 			//Account act = controller.logIn(username, password);
-			if((username.equals("adam") && password.equals("pass"))) { 
+			if(model.getPassword().equals(password)) { 
 			//if(act !=null) { 
-				//session.setAttribute("username",username); 
-				model.setUsername(username);
+				//session.setAttribute("username",username);
 				resp.sendRedirect("/HotelReservationSystem/Account"); 
-			} else if((username.equals("ryan") && password.equals("password"))) { 
-					//if(act !=null) { 
-						//session.setAttribute("username",username); 
-				model.setUsername(username);
-				resp.sendRedirect("/HotelReservationSystem/Account");
-			} else {
+			}else {
 				//resp.sendRedirect("/HotelReservationSystem/index");
 				errorMessage = "Invalid Username and/or Password";
 			}
