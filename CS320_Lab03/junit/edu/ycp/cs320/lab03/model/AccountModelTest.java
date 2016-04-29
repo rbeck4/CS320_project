@@ -26,7 +26,7 @@ public class AccountModelTest {
 		model.setSecCode("12345");
 		model.setUserId(1);
 				
-		controller.setModel(model);
+		//controller.setModel(model);
 	}
 	
 	@Test
