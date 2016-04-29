@@ -85,7 +85,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
-	public Integer insertReservationIntoReservationsTable(String usr, String site, String room, String dateStart,
+	public Integer insertReservationIntoReservationsTable(int usr, String site, String room, String dateStart,
 			String dateEnd, String cost) {
 		int reservID  = -1;
 		int accountID = -1;

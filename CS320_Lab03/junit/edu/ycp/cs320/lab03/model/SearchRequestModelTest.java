@@ -17,24 +17,43 @@ public class SearchRequestModelTest {
 		model = new SearchRequest();
 		controller = new SearchRequestController();
 		
-		model.setCheckInDay("2016-06-12");
-		model.setCheckOutDay("2016-06-16");
-		
-		
+		model.setCheckInDay("12");
+		model.setCheckOutDay("14");
+		model.setCheckInMonth("6");
+		model.setCheckOutMonth("6");
+		model.setCity("Baltimore");
+				
 		controller.setModel(model);
 	}
 	
 	@Test
-	public void testCheckInInput() {
-		String currentCheckInDate = "2016-06-12";
-		assertTrue(model.getCheckInDay()== currentCheckInDate);
+	public void testCheckInDay() {
+		String currentCheckInDay = "12";
+		assertTrue(model.getCheckInDay()== currentCheckInDay);
 	}
 	
 	@Test
-	public void testCheckOutInput() {
-		String currentCheckOutDate = "2016-06-16";
-		assertTrue(model.getCheckOutDay()== currentCheckOutDate);
+	public void testCheckOutDay() {
+		String currentCheckOutDay = "14";
+		assertTrue(model.getCheckOutDay()== currentCheckOutDay);
 	}
+	@Test
+	public void testCheckInMonth() {
+		String currentCheckInMonth = "6";
+		assertTrue(model.getCheckInMonth()== currentCheckInMonth);
+	}
+	
+	@Test
+	public void testCheckOutMonth() {
+		String currentCheckOutMonth = "6";
+		assertTrue(model.getCheckOutMonth()== currentCheckOutMonth);
+	}
+	@Test
+	public void testCity() {
+		String currentCity = "Baltimore";
+		assertTrue(model.getCity()== currentCity);
+	}
+	
 	
 	
 }

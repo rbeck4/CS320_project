@@ -15,6 +15,7 @@ import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.Reservation;
 import edu.ycp.cs320.lab03.persist.DatabaseProvider;
 import edu.ycp.cs320.lab03.persist.DerbyDatabase;
+import edu.ycp.cs320.lab03.FindUserWithUsername;
 //import edu.ycp.cs320.lab03.model.Pair;
 import edu.ycp.cs320.lab03.persist.IDatabase;
 
@@ -77,7 +78,7 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testFindUsersWithUsername() {
 
-		System.out.println("\n*** Testing findAllAccounts ***");
+		System.out.println("\n*** Testing findUserWithUsername ***");
 
 		// get the list of (Accounts) pairs from DB
 		List<Account> acc = db.findUsersWithUsername(userName);
@@ -100,15 +101,18 @@ public class DerbyDatabaseTests {
 	
 
 	@Test
-	public void testInsertReservationIntoReservationsTable() {
+	public void testInsertReservationIntoReservationsTable() throws Exception {
 		System.out.println("\n*** Testing insertReservationIntoReservationsTable ***");
-
-		String usrID = Integer.toString(2);
-		String site = "Home";
-		String room = "2";
-		String dateStart = "10-14-16";
-		String dateEnd = "10-16-16";
-		String cost = "15";
+		userName = "ryan";
+		List<Account> temp = FindUserWithUsername.main(userName);
+		if(temp.size() > 0){
+			Account acct = temp.get(0);
+			int usrID = acct.getUserId();
+			String site = "Home";
+			String room = "2";
+			String dateStart = "10-14-16";
+			String dateEnd = "10-16-16";
+			String cost = "15";
 				
 		// insert new book (and possibly new author) into DB
 		Integer reservID = db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);;
@@ -138,6 +142,9 @@ public class DerbyDatabaseTests {
 		{
 			System.out.println("Failed to insert new reservation (ID: " + reservID + ") into reservations table: <" + site + ">");
 			fail("Failed to insert new resrvation <" + site + "> into DB");
+		}}
+		else{
+			System.out.println("Failed to insert new reservation as Account" + userName + "does not exist");
 		}
 	}
 	
@@ -170,7 +177,7 @@ public class DerbyDatabaseTests {
 			// otherwise, the test was successful.  Now remove the account just inserted to return the DB
 			// to it's original state, except for using a userID
 			else {
-				System.out.println("New account (ID: " + userID + ") successfully added to reservations table: <" + username + ">");
+				System.out.println("New account (ID: " + userID + ") successfully added to account table: <" + username + ">");
 			}
 		}
 		else

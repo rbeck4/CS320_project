@@ -7,7 +7,7 @@ import edu.ycp.cs320.lab03.persist.DatabaseProvider;
 import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class InsertReservationIntoReservationsTable {
-	public static void main(String usr, String site, String room, String dateStart, String dateEnd, String cost) throws Exception {
+	public static void main(int usr, String site, String room, String dateStart, String dateEnd, String cost) throws Exception {
 		/*Scanner keyboard = new Scanner(System.in);
 
 		// Create the default IDatabase instance

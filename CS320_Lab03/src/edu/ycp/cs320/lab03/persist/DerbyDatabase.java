@@ -58,7 +58,7 @@ public class DerbyDatabase implements IDatabase {
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
 						Reservation reserv = new Reservation();
-						loadReservation(reserv, resultSet, 4);
+						loadReservation(reserv, resultSet, 1);
 						
 						result.add(reserv);
 					}
@@ -117,7 +117,7 @@ public class DerbyDatabase implements IDatabase {
 	// transaction that inserts new Reservation into reservations table
 	// also first inserts new Account into Accounts table, if necessary
 	@Override
-	public Integer insertReservationIntoReservationsTable(final String usr, final String site, final String room, final String dateStart, final String dateEnd, final String cost) {
+	public Integer insertReservationIntoReservationsTable(final int usr, final String site, final String room, final String dateStart, final String dateEnd, final String cost) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
@@ -126,16 +126,16 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt3 = null;
 				PreparedStatement stmt4 = null;
 				PreparedStatement stmt5 = null;
-				PreparedStatement stmt6 = null;
-				PreparedStatement stmt7 = null;
+//				PreparedStatement stmt6 = null;
+//				PreparedStatement stmt7 = null;
 				
 				ResultSet resultSet1 = null;
 //	(unused)	ResultSet resultSet2 = null;
 				ResultSet resultSet3 = null;
 //	(unused)	ResultSet resultSet4 = null;
 				ResultSet resultSet5 = null;
-				ResultSet resultSet6 = null;
-				ResultSet resultSet7 = null;
+//				ResultSet resultSet6 = null;
+//				ResultSet resultSet7 = null;
 				
 				// for saving user ID and reservation ID
 				Integer userID = -1;
@@ -144,10 +144,10 @@ public class DerbyDatabase implements IDatabase {
 				// try to retrieve userID (if it exists) from DB, for user name, passed into query
 				try {
 					stmt1 = conn.prepareStatement(
-							"select userID from account " +
-							"  where username = ?"
+							"select account.userID from account " +
+							"  where userID = ?"
 					);
-					stmt1.setString(1, usr);
+					stmt1.setInt(1, usr);
 					
 					// execute the query, get the result
 					resultSet1 = stmt1.executeQuery();
@@ -162,48 +162,13 @@ public class DerbyDatabase implements IDatabase {
 					else
 					{
 						System.out.println("User not found");
-				
-						// if the User is new, to insert new Account into Account table
-						if (userID < 0) {
-							// prepare SQL insert statement to add account to table
-							stmt2 = conn.prepareStatement(
-									"insert into account (username) " +
-									"  values(?) "
-							);
-							stmt2.setString(1, usr);
-							
-							// execute the update
-							stmt2.executeUpdate();
-							
-							System.out.println("New account <" + usr + "> inserted in Account table");						
 						
-							// try to retrieve userID for new Account - DB auto-generates userID
-							stmt3 = conn.prepareStatement(
-									"select userID from account " +
-									"  where userName = ? "
-							);
-							stmt3.setString(1, usr);
-							
-							// execute the query							
-							resultSet3 = stmt3.executeQuery();
-							
-							// get the result - there had better be one							
-							if (resultSet3.next())
-							{
-								userID = resultSet3.getInt(1);
-								System.out.println("New account <" + usr + "> ID: " + userID);						
-							}
-							else	// really should throw an exception here - the new  should have been inserted, but we didn't find them
-							{
-								System.out.println("New account <" + usr + "> not found in Account table (ID: " + userID + ")");
-							}
-						}
 					}
 					
 					// now that we have all the information, insert new Reservation into Reservation table
 					// prepare SQL insert statement to add new Reservation to Reservation table
 					stmt4 = conn.prepareStatement(
-							"insert into reservation (usr, site, room, dateStart, dateEnd, cost) " +
+							"insert into reservations (userID, site, room, checkindate, checkOutDate, cost) " +
 							"  values(?, ?, ?, ?, ?, ?) "
 					);
 					stmt4.setInt(1, userID);
@@ -222,7 +187,7 @@ public class DerbyDatabase implements IDatabase {
 					// DB auto-generates book_id
 					// prepare SQL statement to retrieve book_id for new Book
 					stmt5 = conn.prepareStatement(
-							"select reservID from books " +
+							"select reservations.reservationID from reservations " +
 							"  where userID = ? and site = ? and room = ? and checkInDate = ? and checkOutdate = ? and cost = ?"
 					);
 					stmt5.setInt(1, userID);
@@ -243,7 +208,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					else	// really should throw an exception here - the new book should have been inserted, but we didn't find it
 					{
-						System.out.println("New reservation <" + site + "> not found in Books table (ID: " + reservID + ")");
+						System.out.println("New reservation <" + site + "> not found in reservations table (ID: " + reservID + ")");
 					}
 					
 					return reservID;
