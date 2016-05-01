@@ -77,11 +77,11 @@ input.createAccountButton {
 		<table>
 			<tr>
 				<td class="user">Username:</td>
-				<td><input type="text" name="username"></td>
+				<td><input type="text" name="username" value="${username}"></td>
 			</tr>
 			<tr>
 				<td class="pass">Password:</td>
-				<td><input type="password" name="password"></td>
+				<td><input type="password" name="password" value="${password}"></td>
 			</tr>
 		</table>
 		<input class="loginButton" type="submit" name="Login" value="Login">

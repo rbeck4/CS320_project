@@ -17,10 +17,6 @@ public class Account {
 	public Account() {
 	}
 	
-	public void setMin(String payment) {
-		this.payment = payment;
-	}
-	
 	public void setPayment(String payment) {
 		this.payment = payment;
 	}
