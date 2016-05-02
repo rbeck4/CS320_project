@@ -14,7 +14,11 @@ import edu.ycp.cs320.lab03.controller.SearchRequestController;
 import edu.ycp.cs320.lab03.model.Account;
 import edu.ycp.cs320.lab03.model.Reservation;
 import edu.ycp.cs320.lab03.model.SearchRequest;
+import edu.ycp.cs320.lab03.persist.IDatabase;
 import edu.ycp.cs320.lab03.FindAllReservationsWithUser;
+import edu.ycp.cs320.lab03.persist.DatabaseProvider;
+import edu.ycp.cs320.lab03.persist.DerbyDatabase;
+
 
 public class AccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +43,17 @@ public class AccountServlet extends HttpServlet {
 		Double result = null;
 		ArrayList<Reservation> reservations = model.getReservation();
 		
+		IDatabase db = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+		
+		String userName = "ryan";
+//		Integer reservationListADD = null;
+		java.util.List<Reservation> reservationList = null;
+		
+		//reservationListADD = db.insertReservationIntoReservationsTable(1, "HotelA", "1", "5/5/2016", "5/6/2016", "200");
+		
+		reservationList = db.findAllReservationsWithUser(userName);
 		
 		try {
 				errorMessage = "No Reservations";
@@ -56,10 +71,14 @@ public class AccountServlet extends HttpServlet {
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("result", result);
 		//Set a series of strings as the current reservations
-		for(int i = 0; i < reservations.size(); i++){
-			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
-		}
-		req.setAttribute("NumReserv", reservations.size());		
+//		for(int i = 0; i < reservations.size(); i++){
+//			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
+//		}
+		req.setAttribute("reservation0", "Hotel A | 05/25/16 | 05/27/16 | $400");
+		req.setAttribute("reservation1", reservationList.get(0));
+		req.setAttribute("reservation2", reservationList.get(1));
+		
+		//req.setAttribute("NumReserv", reservations.size());		
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/Account.jsp").forward(req, resp);
