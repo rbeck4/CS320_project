@@ -8,7 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import edu.ycp.cs320.lab03.model.Reservation;
-import edu.ycp.cs320.lab03.model.Searcher;
 
 public class ReservationController {
 	

@@ -46,9 +46,9 @@ public class SearchRequestController {
 			      
 			      //print to console scraped info
 			      for(int i = 0; i < 15; i++) {   
-			    	    System.out.println("Hotel: " + hotels.get(i).text());
-			    	    System.out.println("Price: " + prices.get(i).text());
-			    	    System.out.println("Room type: " + rooms.get(i).text());
+//			    	    System.out.println("Hotel: " + hotels.get(i).text());
+//			    	    System.out.println("Price: " + prices.get(i).text());
+//			    	    System.out.println("Room type: " + rooms.get(i).text());
 			    	    hotelNames.add(hotels.get(i).text());
 			    	    hotelPrices.add(prices.get(i).text());
 			    	    hotelRooms.add(rooms.get(i).text());
@@ -59,9 +59,9 @@ public class SearchRequestController {
 			      model.setHotelNames(hotelNames); 
 			      model.setPrices(hotelPrices); 
 			      model.setRooms(hotelRooms); 
-			      System.out.println(model.getHotelNames().get(1));
-			      System.out.println(model.getPrices().get(1));
-			      System.out.println(model.getRooms().get(1));
+//			      System.out.println(model.getHotelNames().get(1));
+//			      System.out.println(model.getPrices().get(1));
+//			      System.out.println(model.getRooms().get(1));
 			
 			}
 			if (city.equals("Harrisburg")){
