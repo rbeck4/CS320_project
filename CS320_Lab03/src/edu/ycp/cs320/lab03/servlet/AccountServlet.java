@@ -1,5 +1,7 @@
 package edu.ycp.cs320.lab03.servlet;
 
+import static org.junit.Assert.fail;
+
 import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,6 +56,14 @@ public class AccountServlet extends HttpServlet {
 		//reservationListADD = db.insertReservationIntoReservationsTable(1, "HotelA", "1", "5/5/2016", "5/6/2016", "200");
 		
 		reservationList = db.findAllReservationsWithUser(userName);
+//		if (reservationList.isEmpty()) {
+//			System.out.println("No books in database");
+//		}
+		
+//		reservations1 = new ArrayList<Reservation>();
+//		Reservation reserv = reservations.get(0);
+//		reservations.add(reserv);
+//		System.out.println(reserv.getSite());
 		
 		try {
 				errorMessage = "No Reservations";
@@ -75,8 +85,8 @@ public class AccountServlet extends HttpServlet {
 //			req.setAttribute("reservation" + i, reservations.get(0).getSite());							
 //		}
 		req.setAttribute("reservation0", "Hotel A | 05/25/16 | 05/27/16 | $400");
-		req.setAttribute("reservation1", reservationList.get(0));
-		req.setAttribute("reservation2", reservationList.get(1));
+		req.setAttribute("reservation1", reservationList.get(0).getSite()+" | "+" | "+reservationList.get(0).getCheckInDate()+" | "+reservationList.get(0).getCheckOutDate()+" | "+reservationList.get(0).getCost());
+		req.setAttribute("reservation2", reservationList.get(1).getCheckInDate()+" | "+reservationList.get(1).getCheckOutDate());
 		
 		//req.setAttribute("NumReserv", reservations.size());		
 		
