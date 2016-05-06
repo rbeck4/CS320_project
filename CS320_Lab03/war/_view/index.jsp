@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <html>
 <head>
@@ -65,7 +66,7 @@ input.createAccountButton {
 </head>
 
 <body>
-	<c:if test="${not empty errorMessage}">
+	<c:if test="${! empty errorMessage}">
 		<div class="error">${errorMessage}</div>
 	</c:if>
 	<h1 class ="title">Hotel Reservation System</h1>

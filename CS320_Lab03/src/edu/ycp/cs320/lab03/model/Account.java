@@ -1,9 +1,6 @@
 package edu.ycp.cs320.lab03.model;
 
 import java.util.ArrayList;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
 
 public class Account {
 	private int userID;

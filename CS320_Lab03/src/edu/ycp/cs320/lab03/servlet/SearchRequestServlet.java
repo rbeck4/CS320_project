@@ -1,14 +1,21 @@
 package edu.ycp.cs320.lab03.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.cs320.lab03.FindUserWithUsername;
 import edu.ycp.cs320.lab03.controller.SearchRequestController;
+import edu.ycp.cs320.lab03.model.Account;
+import edu.ycp.cs320.lab03.model.Reservation;
 import edu.ycp.cs320.lab03.model.SearchRequest;
+import edu.ycp.cs320.lab03.persist.DatabaseProvider;
+import edu.ycp.cs320.lab03.persist.DerbyDatabase;
+import edu.ycp.cs320.lab03.persist.IDatabase;
 
 public class SearchRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +38,14 @@ public class SearchRequestServlet extends HttpServlet {
 		
 		String errorMessage = null;
 		int result = 0;
+		
+		IDatabase db = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+		
+		String userName = "ryan";
+//		Integer reservationListADD = null;
+		java.util.List<Reservation> reservationList = null;
 		
 		try {
 			//String CheckInDate = req.getParameter("CheckInDate");
@@ -123,6 +138,19 @@ public class SearchRequestServlet extends HttpServlet {
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/checkRoomAvailability.jsp").forward(req, resp);
+		
+		
+			
+			int usrID = 1;
+			String site = "Home";
+			String room = "2";
+			String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
+			String dateEnd = model.getCheckOutMonth()+"-"+model.getCheckOutDay()+"-16";
+			String cost = model.getPrices().get(1);
+				
+		// insert new book (and possibly new author) into DB
+		db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);
+		
 	}
 
 }

@@ -6,18 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ObjectInputStream;
-
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUtils;
 
 import org.eclipse.jetty.server.Request;
 
@@ -55,24 +43,24 @@ public class IndexServlet extends HttpServlet {
 			String username=req.getParameter("username"); 
 			String password=req.getParameter("password");
 			controller.setModel(model, username);
-			Account act = controller.logIn(username, password);
-			if(model.getPassword().equals(password)) { 
-			//if(username.equals("adam")&&password.equals("pass")) {
-			if(act != null) { 
+			//Account act = controller.logIn(username, password);
+			//if(model.getPassword().equals(password)) { 
+			if(username.equals("adam")&&password.equals("pass")) {
+			//if(act !=null) { 
 				//session.setAttribute("username",username);
 				resp.sendRedirect("/HotelReservationSystem/Account"); 
 			}else {
 				//resp.sendRedirect("/HotelReservationSystem/index");
 				errorMessage = "Invalid Username and/or Password";
 			}
-			
-			}}catch (Exception e) {
+
+		} catch (NumberFormatException e) {
 			errorMessage = "Invalid";
 		}
 		
 		// Add parameters as request attributes
-		req.setAttribute("user", req.getParameter("username"));
-		//req.setAttribute("second", req.getParameter("second"));
+		req.setAttribute("first", req.getParameter("first"));
+		req.setAttribute("second", req.getParameter("second"));
 		
 		// Add result objects as request attributes
 		req.setAttribute("errorMessage", errorMessage);

@@ -47,6 +47,7 @@ form.reservations{
 		<ol class="currentReservations">
 			<li>${reservation0}</li>
 			<li>${reservation1}</li>
+			<li>${reservation2}</li>
 		</ol>
 
 	 	<input class="selectButton" type="Submit" name="select" value="Display Reservations">
