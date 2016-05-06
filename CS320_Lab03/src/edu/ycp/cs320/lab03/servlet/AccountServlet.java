@@ -3,6 +3,9 @@ package edu.ycp.cs320.lab03.servlet;
 import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,8 +51,8 @@ public class AccountServlet extends HttpServlet {
 		}
 		
 		// Add parameters as request attributes
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
+		//req.setAttribute("first", req.getParameter("first"));
+		//req.setAttribute("second", req.getParameter("second"));
 		
 		
 		// Add result objects as request attributes

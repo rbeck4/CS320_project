@@ -1,6 +1,7 @@
 package edu.ycp.cs320.lab03.model;
 
 import java.util.ArrayList;
+import java.io.ObjectInputStream;
 
 public class Reservation {
 	private int reservID;

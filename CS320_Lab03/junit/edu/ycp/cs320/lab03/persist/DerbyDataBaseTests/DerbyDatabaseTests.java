@@ -118,7 +118,9 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testInsertReservationIntoReservationsTable() throws Exception {
 		System.out.println("\n*** Testing insertReservationIntoReservationsTable ***");
-		userName = "ryan";
+		//preconditions to reservation insertion
+		int pre = db.findAllReservationsWithUser(userName).size();
+				
 		List<Account> temp = FindUserWithUsername.main(userName);
 		if(temp.size() > 0){
 			Account acct = temp.get(0);
@@ -131,9 +133,9 @@ public class DerbyDatabaseTests {
 				
 		// insert new book (and possibly new author) into DB
 		Integer reservID = db.insertReservationIntoReservationsTable(usrID, site, room, dateStart, dateEnd, cost);;
-
+		int post = db.findAllReservationsWithUser(userName).size();
 		// check the return value - should be a reservationID > 0
-		if (reservID > 0)
+		if (reservID > 0 && pre < post)
 		{
 			// try to retrieve the reservation from the DB
 			// get the list of (Author, Book) pairs from DB
@@ -143,10 +145,10 @@ public class DerbyDatabaseTests {
 				System.out.println("No reservations found for user <" + userName + ">");
 				fail("Failed to insert new reservation <" + site + "> into DB");
 			}
-			// otherwise, the test was successful.  Now remove the reservation just inserted to return the DB
+			// otherwise, the test was successful.  Now remove the reservation just inserted to return the dB
 			// to it's original state, except for using a reservationID
 			else {
-				System.out.println("New reservation (ID: " + reservID + ") successfully added to reservations table: <" + site + ">");
+				System.out.println("New reservation (ID: " + reservID + ") successfully added to reservations table (Table size:" + pre + " To " + post + ")");
 				
 				// now delete reservation from DB
 				// leaving the DB in its previous state - except that an reservationID has been used
