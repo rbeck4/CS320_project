@@ -11,6 +11,5 @@ public interface IDatabase {
 	public Integer insertReservationIntoReservationsTable(int usr, String site, String room, String dateStart, String dateEnd, String cost);
 	public List<Reservation> findAllReservationsWithUser(String userName);
 	public List<Account> findUsersWithUsername(String userName);
-	//public List<Reservation> removeReservationBySiteandUsername(String site, String userName);
-	List<Reservation> removeReservationByReservID(int reservID);
+	public List<Reservation> removeReservationByReservID(int reservID);
 	}

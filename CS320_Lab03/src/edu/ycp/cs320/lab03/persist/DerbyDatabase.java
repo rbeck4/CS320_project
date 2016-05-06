@@ -432,7 +432,7 @@ public class DerbyDatabase implements IDatabase {
 						// we will need the id to remove associated entires in BookAuthors (junction table)
 					
 						stmt2 = conn.prepareStatement(
-								"select reservation.* " +
+								"select reservations.* " +
 								"  from  reservations " +
 								"  where reservations.reservationID = ? "
 						);
