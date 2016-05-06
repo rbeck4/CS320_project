@@ -405,7 +405,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt1 = conn.prepareStatement(
 								"select account.* " +
 								"  from  account, reservations " +
-								"  where reservations.reservID = ? " +
+								"  where reservations.reservationID = ? " +
 								"    and account.userID = reservations.userID " 
 						);
 						
@@ -434,7 +434,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt2 = conn.prepareStatement(
 								"select reservation.* " +
 								"  from  reservations " +
-								"  where reservations.reservID = ? "
+								"  where reservations.reservationID = ? "
 						);
 						
 						// get the Reservations
@@ -455,7 +455,7 @@ public class DerbyDatabase implements IDatabase {
 						// prepare to delete the junction table entries (bookAuthors)
 						stmt3 = conn.prepareStatement(
 								"delete from reservations " +
-								"  where reservID = ? "
+								"  where reservationID = ? "
 						);
 						
 						// delete the reservation from the reservations table.
