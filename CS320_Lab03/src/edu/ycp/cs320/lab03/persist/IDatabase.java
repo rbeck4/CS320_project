@@ -12,4 +12,5 @@ public interface IDatabase {
 	public List<Reservation> findAllReservationsWithUser(String userName);
 	public List<Account> findUsersWithUsername(String userName);
 	//public List<Reservation> removeReservationBySiteandUsername(String site, String userName);
+	List<Reservation> removeReservationByReservID(int reservID);
 	}

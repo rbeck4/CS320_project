@@ -141,7 +141,7 @@ public class SearchRequestServlet extends HttpServlet {
 		
 		
 			
-			int usrID = 1;
+			int usrID = 2;
 			String site = "Home";
 			String room = "2";
 			String dateStart = model.getCheckInMonth()+"-"+model.getCheckInDay()+"-16";
